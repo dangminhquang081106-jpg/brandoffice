@@ -1,0 +1,4235 @@
+<!doctype html>
+<html lang="nl" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brand Office | Branding & Marketing voor het MKB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* ═══════════════════════════════════════
+   THEME VARIABLES
+═══════════════════════════════════════ */
+      :root,
+      [data-theme="light"] {
+        --bg: #f0f5ff;
+        --bg2: #e4eeff;
+        --bg3: #ffffff;
+        --bg4: #d6e6ff;
+        --pri: #004aad;
+        --pri-d: #003585;
+        --sec: #38b6ff;
+        --acc: #0cc0df;
+        --text: #071428;
+        --sub: #2d4a7a;
+        --muted: #5e7aaa;
+        --bdr: rgba(0, 74, 173, 0.13);
+        --bdr-hi: rgba(0, 74, 173, 0.35);
+        --nav-bg: rgba(255, 255, 255, 0.95);
+        --nav-bdr: rgba(0, 74, 173, 0.12);
+        --sh-color: rgba(0, 74, 173, 0.1);
+        --sh-color2: rgba(56, 182, 255, 0.15);
+        --sh-dot: rgba(0, 74, 173, 0.18);
+        --shadow: 0 4px 24px rgba(0, 74, 173, 0.1);
+        --shadow-lg: 0 12px 40px rgba(0, 74, 173, 0.14);
+        --cta-bg: linear-gradient(
+          135deg,
+          #004aad 0%,
+          #003585 50%,
+          #001f54 100%
+        );
+      }
+      [data-theme="dark"] {
+        --bg: #040c1e;
+        --bg2: #071428;
+        --bg3: #0a1a35;
+        --bg4: #0d2045;
+        --text: #f0f6ff;
+        --sub: #7a9cc8;
+        --muted: #3d5a82;
+        --bdr: rgba(56, 182, 255, 0.12);
+        --bdr-hi: rgba(56, 182, 255, 0.32);
+        --nav-bg: rgba(4, 12, 30, 0.95);
+        --nav-bdr: rgba(56, 182, 255, 0.12);
+        --sh-color: rgba(56, 182, 255, 0.1);
+        --sh-color2: rgba(0, 74, 173, 0.18);
+        --sh-dot: rgba(56, 182, 255, 0.2);
+        --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+        --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
+        --cta-bg: linear-gradient(
+          135deg,
+          #004aad 0%,
+          #003585 50%,
+          #001f54 100%
+        );
+      }
+
+      html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+        width: 100%;
+        transition:
+          background 0.4s,
+          color 0.3s;
+      }
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--pri);
+        border-radius: 3px;
+      }
+
+      /* PAGE SYSTEM */
+      .page {
+        display: none;
+        min-height: 100vh;
+        animation: fadeUp 0.4s ease forwards;
+      }
+      .page.active {
+        display: block;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .wrap {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2.5rem;
+      }
+
+      /* ═══════════════════════════════════════
+   DECORATIVE SHAPES — reusable
+═══════════════════════════════════════ */
+      .deco-rings {
+        position: absolute;
+        pointer-events: none;
+        width: 500px;
+        height: 500px;
+        top: var(--dt, auto);
+        right: var(--dr, auto);
+        bottom: var(--db, auto);
+        left: var(--dl, auto);
+        transform: translate(var(--dtx, 0), var(--dty, 0));
+        overflow: visible;
+      }
+      .deco-dots {
+        position: absolute;
+        pointer-events: none;
+        background-image: radial-gradient(
+          circle,
+          var(--sh-dot) 1.5px,
+          transparent 1.5px
+        );
+        background-size: 22px 22px;
+        opacity: 1;
+      }
+      /* Large half-visible circle in corner */
+      .corner-circ {
+        position: absolute;
+        pointer-events: none;
+        border-radius: 50%;
+        border: 1.5px solid var(--sh-color);
+      }
+      .corner-circ2 {
+        position: absolute;
+        pointer-events: none;
+        border-radius: 50%;
+        border: 1px solid var(--sh-color2);
+      }
+      .diag-lines {
+        position: absolute;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      /* ═══════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════ */
+      #nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 900;
+        background: var(--nav-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--nav-bdr);
+        transition:
+          background 0.4s,
+          border-color 0.3s;
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.55rem 2.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .nav-logo {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+      .nav-logo img {
+        height: 56px;
+        width: auto;
+        display: block;
+        transition: filter 0.3s;
+      }
+      [data-theme="light"] .nav-logo img {
+        filter: brightness(0.9) saturate(1.2);
+      }
+      [data-theme="dark"] .nav-logo img {
+        filter: brightness(1.15) drop-shadow(0 0 8px rgba(56, 182, 255, 0.2));
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        list-style: none;
+      }
+      .nav-links li a {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.71rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--muted);
+        padding: 0.44rem 0.95rem;
+        border: 1px solid var(--bdr);
+        border-radius: 3px;
+        transition: all 0.2s;
+        cursor: pointer;
+        display: block;
+      }
+      .nav-links li a:hover {
+        color: var(--text);
+        border-color: var(--bdr-hi);
+        background: var(--bg2);
+      }
+      .nav-links li a.active-pg {
+        color: var(--pri);
+        border-color: var(--pri);
+        background: rgba(0, 74, 173, 0.06);
+      }
+      [data-theme="dark"] .nav-links li a.active-pg {
+        background: rgba(56, 182, 255, 0.08);
+      }
+      .nav-links li a.nav-cta {
+        background: var(--pri);
+        color: #fff;
+        border-color: var(--pri);
+      }
+      .nav-links li a.nav-cta:hover {
+        background: var(--sec);
+        border-color: var(--sec);
+      }
+
+      /* Theme toggle button */
+      .theme-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--bg2);
+        border: 1px solid var(--bdr);
+        border-radius: 20px;
+        padding: 0.35rem 0.8rem 0.35rem 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-left: 0.5rem;
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        color: var(--sub);
+      }
+      .theme-toggle:hover {
+        border-color: var(--bdr-hi);
+        background: var(--bg3);
+      }
+      .theme-toggle-track {
+        width: 32px;
+        height: 18px;
+        background: var(--bdr);
+        border-radius: 9px;
+        position: relative;
+        transition: background 0.3s;
+        flex-shrink: 0;
+      }
+      [data-theme="dark"] .theme-toggle-track {
+        background: var(--pri);
+      }
+      .theme-toggle-thumb {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #fff;
+        transition: transform 0.3s;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      }
+      [data-theme="dark"] .theme-toggle-thumb {
+        transform: translateX(14px);
+      }
+      .toggle-label {
+        white-space: nowrap;
+      }
+
+      /* ═══════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════ */
+      .btn {
+        display: inline-block;
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        padding: 0.85rem 1.8rem;
+        white-space: nowrap;
+        border-radius: 2px;
+      }
+      .btn-prim {
+        background: var(--pri);
+        color: #fff;
+      }
+      .btn-prim:hover {
+        background: var(--sec);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(56, 182, 255, 0.3);
+      }
+      .btn-out {
+        background: transparent;
+        color: var(--sub);
+        border: 1px solid var(--bdr);
+      }
+      .btn-out:hover {
+        border-color: var(--pri);
+        color: var(--pri);
+        transform: translateY(-1px);
+      }
+      [data-theme="dark"] .btn-out:hover {
+        border-color: var(--sec);
+        color: var(--sec);
+      }
+      .btn-acc {
+        background: linear-gradient(135deg, var(--sec), var(--acc));
+        color: #fff;
+      }
+      .btn-acc:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(56, 182, 255, 0.35);
+      }
+      .btn-white {
+        background: #fff;
+        color: var(--pri);
+      }
+      .btn-white:hover {
+        background: var(--sec);
+        color: #fff;
+        transform: translateY(-2px);
+      }
+
+      /* ═══════════════════════════════════════
+   HERO SECTION
+═══════════════════════════════════════ */
+      #hero-section {
+        width: 100%;
+        min-height: auto;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        padding-top: 68px;
+      }
+      /* Light mode hero bg */
+      [data-theme="light"] #hero-section {
+        background: linear-gradient(
+          140deg,
+          #f0f5ff 0%,
+          #e0eeff 40%,
+          #f5f9ff 100%
+        );
+      }
+      [data-theme="dark"] #hero-section {
+        background: var(--bg);
+      }
+
+      /* Grid overlay */
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(var(--sh-color) 1px, transparent 1px),
+          linear-gradient(90deg, var(--sh-color) 1px, transparent 1px);
+        background-size: 60px 60px;
+        opacity: 0.6;
+      }
+      /* Glow blobs */
+      .hero-glow1 {
+        position: absolute;
+        width: 650px;
+        height: 650px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(0, 74, 173, 0.12) 0%,
+          transparent 65%
+        );
+        top: -150px;
+        right: -100px;
+        animation: g1 14s ease-in-out infinite alternate;
+        pointer-events: none;
+      }
+      .hero-glow2 {
+        position: absolute;
+        width: 450px;
+        height: 450px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(56, 182, 255, 0.09) 0%,
+          transparent 70%
+        );
+        bottom: -100px;
+        left: 0;
+        animation: g2 10s ease-in-out infinite alternate;
+        pointer-events: none;
+      }
+      [data-theme="dark"] .hero-glow1 {
+        background: radial-gradient(
+          circle,
+          rgba(0, 74, 173, 0.22) 0%,
+          transparent 65%
+        );
+      }
+      [data-theme="dark"] .hero-glow2 {
+        background: radial-gradient(
+          circle,
+          rgba(56, 182, 255, 0.1) 0%,
+          transparent 70%
+        );
+      }
+      @keyframes g1 {
+        from {
+          transform: translate(0, 0);
+        }
+        to {
+          transform: translate(-30px, -40px);
+        }
+      }
+      @keyframes g2 {
+        from {
+          transform: translate(0, 0);
+        }
+        to {
+          transform: translate(20px, -30px);
+        }
+      }
+
+      /* SVG decorations in hero */
+      .hero-deco {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 3rem 2.5rem 3.5rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+        min-height: auto;
+      }
+      .hero-tag {
+        display: inline-block;
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--pri);
+        background: rgba(0, 74, 173, 0.08);
+        border: 1px solid var(--bdr-hi);
+        padding: 0.35rem 0.9rem;
+        margin-bottom: 1.6rem;
+      }
+      [data-theme="dark"] .hero-tag {
+        color: var(--sec);
+        background: rgba(56, 182, 255, 0.07);
+      }
+      .hero h1 {
+        font-family: "Montserrat", sans-serif;
+        font-size: clamp(2.2rem, 4.5vw, 4.2rem);
+        font-weight: 900;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin-bottom: 1.4rem;
+        word-break: break-word;
+        overflow-wrap: break-word;
+      }
+      .hero h1 .hl {
+        background: linear-gradient(135deg, var(--pri), var(--sec));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .hero-sub {
+        font-size: 1rem;
+        color: var(--sub);
+        max-width: 480px;
+        margin-bottom: 2.5rem;
+        font-weight: 300;
+        line-height: 1.85;
+      }
+      .hero-btns {
+        display: flex;
+        gap: 0.9rem;
+        flex-wrap: wrap;
+      }
+
+      /* Hero right visual */
+      .hero-visual {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .hv-card {
+        background: var(--bg3);
+        border: 1px solid var(--bdr);
+        border-left: 3px solid var(--pri);
+        padding: 1.4rem 1.6rem;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        animation: cardIn 0.6s ease both;
+        transition:
+          background 0.3s,
+          border-color 0.3s,
+          box-shadow 0.3s;
+      }
+      .hv-card:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .hv-card:nth-child(2) {
+        animation-delay: 0.2s;
+        margin-left: 2rem;
+        border-left-color: var(--sec);
+      }
+      .hv-card:nth-child(3) {
+        animation-delay: 0.3s;
+        margin-left: 1rem;
+        border-left-color: var(--acc);
+      }
+      @keyframes cardIn {
+        from {
+          opacity: 0;
+          transform: translateX(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .hv-card::after {
+        content: "";
+        position: absolute;
+        top: -25px;
+        right: -25px;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        border: 1px solid var(--sh-color);
+      }
+      .hv-label {
+        font-size: 0.68rem;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.4rem;
+      }
+      .hv-val {
+        font-family: "Outfit", sans-serif;
+        font-size: 1.9rem;
+        font-weight: 700;
+        color: var(--pri);
+        line-height: 1;
+        margin-bottom: 0.2rem;
+      }
+      [data-theme="dark"] .hv-val {
+        color: var(--text);
+      }
+      .hv-desc {
+        font-size: 0.78rem;
+        color: var(--sub);
+        font-weight: 300;
+      }
+      .hv-bar {
+        height: 3px;
+        background: var(--bdr);
+        margin-top: 0.8rem;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .hv-bar-fill {
+        height: 100%;
+        border-radius: 2px;
+        background: linear-gradient(90deg, var(--pri), var(--sec));
+        animation: barG 1.5s ease both;
+        animation-delay: 0.5s;
+      }
+      @keyframes barG {
+        from {
+          width: 0;
+        }
+        to {
+          width: var(--w);
+        }
+      }
+
+      /* ═══════════════════════════════════════
+   STATS BAND
+═══════════════════════════════════════ */
+      .stats-band {
+        width: 100%;
+        padding: 2.8rem 0;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.4s;
+      }
+      [data-theme="light"] .stats-band {
+        background: linear-gradient(90deg, #ddeaff, #e8f2ff);
+      }
+      [data-theme="dark"] .stats-band {
+        background: linear-gradient(90deg, var(--bg2), var(--bg3));
+      }
+      .stats-band::before,
+      .stats-band::after {
+        content: "";
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 1.5px solid var(--sh-color);
+        pointer-events: none;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .stats-band::before {
+        left: -80px;
+      }
+      .stats-band::after {
+        right: -80px;
+      }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border: 1px solid var(--bdr);
+        border-radius: 2px;
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+        background: var(--bg3);
+      }
+      .stat {
+        text-align: center;
+        padding: 1.5rem 1rem;
+        border-right: 1px solid var(--bdr);
+        transition: background 0.2s;
+      }
+      .stat:hover {
+        background: var(--bg2);
+      }
+      .stat:last-child {
+        border-right: none;
+      }
+      .stat-n {
+        font-family: "Outfit", sans-serif;
+        font-size: 2.4rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--pri), var(--sec));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+        margin-bottom: 0.3rem;
+      }
+      .stat-l {
+        font-size: 0.7rem;
+        color: var(--muted);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      /* ═══════════════════════════════════════
+   SECTION COMMONS
+═══════════════════════════════════════ */
+      .sec-tag {
+        display: inline-block;
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--pri);
+        background: rgba(0, 74, 173, 0.07);
+        border: 1px solid var(--bdr-hi);
+        padding: 0.3rem 0.85rem;
+        margin-bottom: 1.2rem;
+      }
+      [data-theme="dark"] .sec-tag {
+        color: var(--sec);
+        background: rgba(56, 182, 255, 0.07);
+      }
+      .sec-h {
+        font-family: "Montserrat", sans-serif;
+        font-size: clamp(1.8rem, 3vw, 2.8rem);
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: 0.9rem;
+        word-break: break-word;
+      }
+      .sec-h span {
+        color: var(--sec);
+      }
+      [data-theme="light"] .sec-h span {
+        color: var(--pri);
+      }
+      .sec-p {
+        font-size: 0.95rem;
+        color: var(--sub);
+        line-height: 1.85;
+        font-weight: 300;
+        max-width: 520px;
+      }
+
+      /* ═══════════════════════════════════════
+   PROBLEM SECTION
+═══════════════════════════════════════ */
+      .problem-section {
+        padding: 6rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+      [data-theme="light"] .problem-section {
+        background: var(--bg);
+      }
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: start;
+        position: relative;
+        z-index: 1;
+      }
+      .prob-list {
+        list-style: none;
+        margin-top: 1.8rem;
+      }
+      .prob-list li {
+        font-size: 0.92rem;
+        color: var(--sub);
+        font-weight: 300;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--bdr);
+        display: flex;
+        gap: 0.9rem;
+        align-items: flex-start;
+        line-height: 1.6;
+      }
+      .prob-list li::before {
+        content: "";
+        width: 3px;
+        min-height: 14px;
+        background: var(--pri);
+        flex-shrink: 0;
+        margin-top: 4px;
+        border-radius: 2px;
+      }
+      [data-theme="dark"] .prob-list li::before {
+        background: var(--sec);
+      }
+      .q-card {
+        background: var(--bg3);
+        border: 1px solid var(--bdr);
+        border-top: 3px solid var(--pri);
+        padding: 2rem;
+        margin-bottom: 1.1rem;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition:
+          background 0.3s,
+          box-shadow 0.3s;
+      }
+      [data-theme="dark"] .q-card {
+        border-top-color: var(--sec);
+      }
+      .q-card::before {
+        content: "";
+        position: absolute;
+        bottom: -25px;
+        right: -25px;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        border: 1px solid var(--sh-color);
+      }
+      .q-card blockquote {
+        font-style: italic;
+        font-size: 1rem;
+        line-height: 1.7;
+        color: var(--text);
+        margin-bottom: 0.8rem;
+        font-weight: 300;
+      }
+      .q-src {
+        font-size: 0.68rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--pri);
+        font-weight: 700;
+        font-family: "Montserrat", sans-serif;
+      }
+      [data-theme="dark"] .q-src {
+        color: var(--sec);
+      }
+      .mini-stats {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        padding: 1.5rem;
+        background: var(--bg2);
+        border: 1px solid var(--bdr);
+        transition: background 0.3s;
+      }
+      .mini-stat-n {
+        font-family: "Outfit", sans-serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--pri);
+        line-height: 1;
+      }
+      [data-theme="dark"] .mini-stat-n {
+        color: var(--sec);
+      }
+      .mini-stat-l {
+        font-size: 0.68rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        margin-top: 0.2rem;
+      }
+      .mini-divider {
+        width: 1px;
+        background: var(--bdr);
+      }
+
+      /* ═══════════════════════════════════════
+   CTA BAND (always dark)
+═══════════════════════════════════════ */
+      .cta-band {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        background: var(--cta-bg);
+        padding: 5rem 0;
+      }
+      .cta-band::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 44px 44px;
+      }
+      .cta-ring {
+        position: absolute;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        pointer-events: none;
+      }
+      .cta-r1 {
+        width: 380px;
+        height: 380px;
+        top: 50%;
+        left: -130px;
+        transform: translateY(-50%);
+      }
+      .cta-r2 {
+        width: 240px;
+        height: 240px;
+        top: 50%;
+        right: -70px;
+        transform: translateY(-50%);
+      }
+      .cta-r3 {
+        width: 170px;
+        height: 170px;
+        top: 50%;
+        left: -50px;
+        transform: translateY(-50%);
+        border-color: rgba(56, 182, 255, 0.15);
+      }
+      .cta-band-inner {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+      .cta-t {
+        font-family: "Montserrat", sans-serif;
+        font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+        font-weight: 900;
+        color: #fff;
+        line-height: 1.2;
+      }
+      .cta-t span {
+        color: var(--sec);
+      }
+
+      /* ═══════════════════════════════════════
+   PAGE HEADER
+═══════════════════════════════════════ */
+      .page-hdr {
+        width: 100%;
+        padding: 6rem 0 4rem;
+        border-bottom: 1px solid var(--bdr);
+        position: relative;
+        overflow: hidden;
+        transition: background 0.4s;
+      }
+      [data-theme="light"] .page-hdr {
+        background: linear-gradient(180deg, #ddeaff 0%, #f0f5ff 100%);
+      }
+      [data-theme="dark"] .page-hdr {
+        background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+      }
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.7rem;
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: color 0.2s;
+        margin-bottom: 2rem;
+      }
+      .back-btn::before {
+        content: "";
+        width: 20px;
+        height: 1px;
+        background: currentColor;
+      }
+      .back-btn:hover {
+        color: var(--pri);
+      }
+      [data-theme="dark"] .back-btn:hover {
+        color: var(--sec);
+      }
+
+      /* ═══════════════════════════════════════
+   PACKAGES
+═══════════════════════════════════════ */
+      .pkg-section {
+        padding: 2rem 0 5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      [data-theme="light"] .pkg-section {
+        background: var(--bg);
+      }
+      .pkg-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.4rem;
+        margin-top: 3rem;
+        position: relative;
+        z-index: 1;
+      }
+      .pkg {
+        background: var(--bg3);
+        border: 1px solid var(--bdr);
+        padding: 2.2rem;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        box-shadow: var(--shadow);
+      }
+      .pkg::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--pri), var(--pri-d));
+        transition: background 0.2s;
+      }
+      .pkg:hover::before {
+        background: linear-gradient(90deg, var(--sec), var(--acc));
+      }
+      .pkg.feat {
+        border-color: var(--pri);
+      }
+      [data-theme="dark"] .pkg.feat {
+        border-color: rgba(56, 182, 255, 0.4);
+        background: #0c1e3d;
+      }
+      [data-theme="light"] .pkg.feat {
+        background: #eaf3ff;
+      }
+      .pkg.feat::before {
+        background: linear-gradient(90deg, var(--sec), var(--acc));
+      }
+      .pkg:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+      }
+      .pkg::after {
+        content: "";
+        position: absolute;
+        bottom: -35px;
+        right: -35px;
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        border: 1px solid var(--sh-color);
+      }
+      .pkg-badge {
+        position: absolute;
+        top: 1.1rem;
+        right: 1.1rem;
+        background: linear-gradient(135deg, var(--pri), var(--sec));
+        color: #fff;
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.6rem;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        padding: 0.2rem 0.65rem;
+      }
+      .pkg-tier {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.4rem;
+      }
+      .pkg-name {
+        font-family: "Outfit", sans-serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 0.2rem;
+        color: var(--text);
+      }
+      .pkg-price {
+        font-family: "Outfit", sans-serif;
+        font-size: 2.6rem;
+        font-weight: 700;
+        color: var(--pri);
+        margin: 1rem 0 0.2rem;
+      }
+      [data-theme="dark"] .pkg-price {
+        color: var(--text);
+      }
+      .pkg-price sup {
+        font-size: 1rem;
+        vertical-align: super;
+        color: var(--sec);
+      }
+      .pkg-desc {
+        font-size: 0.84rem;
+        color: var(--muted);
+        font-weight: 300;
+        line-height: 1.65;
+        margin-bottom: 1.4rem;
+      }
+      .pkg-hr {
+        height: 1px;
+        background: var(--bdr);
+        margin: 1.2rem 0;
+      }
+      .pkg-feats {
+        list-style: none;
+        margin-bottom: 1.8rem;
+        flex: 1;
+      }
+      .pkg-feats li {
+        font-size: 0.83rem;
+        color: var(--sub);
+        padding: 0.42rem 0;
+        padding-left: 1rem;
+        position: relative;
+        font-weight: 300;
+        line-height: 1.5;
+      }
+      .pkg-feats li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 5px;
+        height: 1px;
+        background: var(--pri);
+        transform: translateY(-50%);
+      }
+      [data-theme="dark"] .pkg-feats li::before {
+        background: var(--sec);
+      }
+      .pkg-btn {
+        width: 100%;
+        padding: 0.82rem;
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-top: auto;
+      }
+      .pkg-btn-o {
+        background: transparent;
+        color: var(--sub);
+        border: 1px solid var(--bdr);
+      }
+      .pkg-btn-o:hover {
+        border-color: var(--pri);
+        color: var(--pri);
+      }
+      [data-theme="dark"] .pkg-btn-o:hover {
+        border-color: var(--sec);
+        color: var(--sec);
+      }
+      .pkg-btn-f {
+        background: linear-gradient(135deg, var(--pri), var(--sec));
+        color: #fff;
+      }
+      .pkg-btn-f:hover {
+        box-shadow: 0 6px 20px rgba(56, 182, 255, 0.3);
+        transform: translateY(-1px);
+      }
+
+      /* ═══════════════════════════════════════
+   DETAIL OVERLAY
+═══════════════════════════════════════ */
+      .det-ov {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 800;
+        overflow-y: auto;
+        padding: 5rem 2rem 3rem;
+        animation: fadeUp 0.3s ease;
+      }
+      .det-ov.open {
+        display: block;
+      }
+      [data-theme="light"] .det-ov {
+        background: rgba(7, 20, 40, 0.7);
+      }
+      [data-theme="dark"] .det-ov {
+        background: rgba(4, 12, 30, 0.96);
+      }
+      .det-box {
+        max-width: 940px;
+        margin: 0 auto;
+        background: var(--bg3);
+        border: 1px solid var(--bdr);
+        border-top: 3px solid var(--pri);
+        padding: 3rem;
+        position: relative;
+        box-shadow: var(--shadow-lg);
+        transition: background 0.3s;
+      }
+      [data-theme="dark"] .det-box {
+        border-top-color: var(--sec);
+      }
+      .det-close {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: none;
+        border: 1px solid var(--bdr);
+        color: var(--muted);
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 0.4rem 1rem;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .det-close:hover {
+        border-color: var(--pri);
+        color: var(--pri);
+      }
+      [data-theme="dark"] .det-close:hover {
+        border-color: var(--sec);
+        color: var(--sec);
+      }
+      .det-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        margin-top: 2rem;
+        align-items: start;
+      }
+      .det-steps {
+        list-style: none;
+      }
+      .det-steps li {
+        display: flex;
+        gap: 1.1rem;
+        padding: 1.1rem 0;
+        border-bottom: 1px solid var(--bdr);
+        align-items: flex-start;
+      }
+      .ds-n {
+        font-family: "Outfit", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--pri);
+        flex-shrink: 0;
+        min-width: 1.8rem;
+      }
+      [data-theme="dark"] .ds-n {
+        color: var(--sec);
+      }
+      .ds-t strong {
+        display: block;
+        font-size: 0.93rem;
+        font-weight: 600;
+        margin-bottom: 0.2rem;
+        color: var(--text);
+      }
+      .ds-t span {
+        font-size: 0.83rem;
+        color: var(--sub);
+        font-weight: 300;
+        line-height: 1.65;
+      }
+      .price-box {
+        background: var(--bg2);
+        border: 1px solid var(--bdr);
+        padding: 2rem;
+        transition: background 0.3s;
+      }
+      .price-lbl {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.4rem;
+      }
+      .price-big {
+        font-family: "Outfit", sans-serif;
+        font-size: 3.2rem;
+        font-weight: 700;
+        color: var(--pri);
+        margin-bottom: 0.4rem;
+      }
+      [data-theme="dark"] .price-big {
+        color: var(--text);
+      }
+      .price-note {
+        font-size: 0.82rem;
+        color: var(--muted);
+        font-weight: 300;
+        line-height: 1.65;
+        margin-bottom: 1.5rem;
+      }
+
+      /* ═══════════════════════════════════════
+   WERKWIJZE STEPS
+═══════════════════════════════════════ */
+      .steps-sec {
+        padding: 4rem 0 6rem;
+        position: relative;
+        overflow: hidden;
+      }
+      [data-theme="light"] .steps-sec {
+        background: var(--bg);
+      }
+      .steps-track {
+        margin-top: 3rem;
+        padding-left: 3.5rem;
+        position: relative;
+        z-index: 1;
+      }
+      .steps-track::before {
+        content: "";
+        position: absolute;
+        left: 1.1rem;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(180deg, var(--pri) 0%, var(--bdr) 100%);
+      }
+      .step {
+        display: flex;
+        gap: 2rem;
+        padding: 1.8rem 0;
+        border-bottom: 1px solid var(--bdr);
+        align-items: flex-start;
+        transition: transform 0.2s;
+      }
+      .step:last-child {
+        border-bottom: none;
+      }
+      .step:hover .step-body {
+        transform: translateX(6px);
+      }
+      .step-n {
+        position: absolute;
+        left: -2.4rem;
+        top: 1.8rem;
+        width: 2.2rem;
+        height: 2.2rem;
+        background: var(--bg3);
+        border: 2px solid var(--pri);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Outfit", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--pri);
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px var(--bg);
+      }
+      [data-theme="dark"] .step-n {
+        border-color: var(--sec);
+        color: var(--sec);
+        background: var(--bg);
+      }
+      .step-body {
+        transition: transform 0.2s;
+      }
+      .step-title {
+        font-family: "Montserrat", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 0.35rem;
+      }
+      .step-desc {
+        font-size: 0.89rem;
+        color: var(--sub);
+        font-weight: 300;
+        line-height: 1.8;
+        max-width: 600px;
+      }
+      .step-pill {
+        display: inline-block;
+        margin-top: 0.65rem;
+        font-size: 0.65rem;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--pri);
+        background: rgba(0, 74, 173, 0.07);
+        border: 1px solid var(--bdr-hi);
+        padding: 0.18rem 0.65rem;
+      }
+      [data-theme="dark"] .step-pill {
+        color: var(--sec);
+        background: rgba(56, 182, 255, 0.07);
+      }
+
+      /* ═══════════════════════════════════════
+   OVER ONS
+═══════════════════════════════════════ */
+      .over-sec {
+        padding: 4rem 0 6rem;
+        position: relative;
+        overflow: hidden;
+      }
+      [data-theme="light"] .over-sec {
+        background: var(--bg);
+      }
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+        margin-top: 2.5rem;
+        position: relative;
+        z-index: 1;
+      }
+      .tm {
+        background: var(--bg3);
+        border: 1px solid var(--bdr);
+        padding: 1.6rem 1rem;
+        text-align: center;
+        transition: all 0.25s;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+      .tm::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--pri), var(--sec));
+        transform: scaleX(0);
+        transition: transform 0.3s;
+      }
+      .tm:hover::after {
+        transform: scaleX(1);
+      }
+      .tm:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+      }
+      .tm-av {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--pri) 0%, #2d7ad6 100%);
+        margin: 0 auto 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Outfit", sans-serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #fff;
+        border: 2px solid rgba(0, 74, 173, 0.2);
+      }
+      .tm-name {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.82rem;
+        font-weight: 700;
+        margin-bottom: 0.22rem;
+        color: var(--text);
+      }
+      .tm-role {
+        font-size: 0.68rem;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+      .vals-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.3rem;
+        margin-top: 4rem;
+        position: relative;
+        z-index: 1;
+      }
+      .val {
+        background: var(--bg3);
+        border: 1px solid var(--bdr);
+        border-top: 3px solid var(--pri);
+        padding: 2rem;
+        transition: all 0.25s;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+      .val::after {
+        content: "";
+        position: absolute;
+        bottom: -25px;
+        right: -25px;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        border: 1px solid var(--sh-color);
+      }
+      .val:hover {
+        border-top-color: var(--sec);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+      }
+      .val-title {
+        font-family: "Montserrat", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.55rem;
+        color: var(--text);
+      }
+      .val-text {
+        font-size: 0.84rem;
+        color: var(--sub);
+        line-height: 1.8;
+        font-weight: 300;
+      }
+
+      /* ═══════════════════════════════════════
+   FAQ
+═══════════════════════════════════════ */
+      .faq-sec {
+        padding: 6rem 0;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.4s;
+      }
+      [data-theme="light"] .faq-sec {
+        background: linear-gradient(180deg, #e4eeff, #f0f5ff);
+      }
+      [data-theme="dark"] .faq-sec {
+        background: var(--bg2);
+      }
+      .faq-inner {
+        max-width: 760px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+      .faq-item {
+        border-bottom: 1px solid var(--bdr);
+      }
+      .faq-q {
+        width: 100%;
+        background: none;
+        border: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 0;
+        cursor: pointer;
+        font-family: "Poppins", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--text);
+        text-align: left;
+        gap: 1rem;
+      }
+      .faq-ic {
+        width: 22px;
+        height: 22px;
+        border: 2px solid var(--bdr-hi);
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--pri);
+        font-size: 1.1rem;
+        transition: transform 0.3s;
+        border-radius: 50%;
+      }
+      [data-theme="dark"] .faq-ic {
+        color: var(--sec);
+      }
+      .faq-item.open .faq-ic {
+        transform: rotate(45deg);
+      }
+      .faq-a {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.35s ease,
+          padding 0.35s;
+        font-size: 0.88rem;
+        color: var(--sub);
+        line-height: 1.8;
+        font-weight: 300;
+      }
+      .faq-item.open .faq-a {
+        max-height: 200px;
+        padding-bottom: 1.2rem;
+      }
+
+      /* ═══════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════ */
+      .contact-sec {
+        padding: 4rem 0 6rem;
+        position: relative;
+        overflow: hidden;
+      }
+      [data-theme="light"] .contact-sec {
+        background: var(--bg);
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.3fr;
+        gap: 5rem;
+        margin-top: 3rem;
+        align-items: start;
+        position: relative;
+        z-index: 1;
+      }
+      .ci p {
+        font-size: 0.92rem;
+        color: var(--sub);
+        line-height: 1.8;
+        font-weight: 300;
+        margin-bottom: 2rem;
+      }
+      .c-det {
+        display: flex;
+        gap: 1.1rem;
+        align-items: flex-start;
+        padding: 0.9rem 0;
+        border-bottom: 1px solid var(--bdr);
+      }
+      .c-lbl {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.63rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--pri);
+        min-width: 68px;
+        padding-top: 2px;
+      }
+      [data-theme="dark"] .c-lbl {
+        color: var(--sec);
+      }
+      .c-val {
+        font-size: 0.87rem;
+        color: var(--sub);
+        font-weight: 300;
+      }
+      .c-form {
+        background: var(--bg3);
+        border: 1px solid var(--bdr);
+        border-top: 3px solid var(--pri);
+        padding: 2.5rem;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+      }
+      [data-theme="dark"] .c-form {
+        border-top-color: var(--sec);
+      }
+      .c-form::before {
+        content: "";
+        position: absolute;
+        bottom: -40px;
+        right: -40px;
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        border: 1px solid var(--sh-color);
+      }
+      .fg {
+        margin-bottom: 1.2rem;
+      }
+      .fl {
+        display: block;
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.4rem;
+      }
+      .fi,
+      .ft,
+      .fs {
+        width: 100%;
+        background: var(--bg2);
+        border: 1px solid var(--bdr);
+        color: var(--text);
+        font-family: "Poppins", sans-serif;
+        font-size: 0.88rem;
+        font-weight: 300;
+        padding: 0.72rem 0.95rem;
+        outline: none;
+        transition:
+          border-color 0.2s,
+          background 0.3s;
+        appearance: none;
+        -webkit-appearance: none;
+      }
+      .fi:focus,
+      .ft:focus,
+      .fs:focus {
+        border-color: var(--pri);
+      }
+      [data-theme="dark"] .fi:focus,
+      [data-theme="dark"] .ft:focus,
+      [data-theme="dark"] .fs:focus {
+        border-color: var(--sec);
+      }
+      .ft {
+        min-height: 100px;
+        resize: vertical;
+      }
+      .fr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .f-sub {
+        width: 100%;
+        padding: 0.92rem;
+        background: linear-gradient(135deg, var(--pri), var(--sec));
+        color: #fff;
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-top: 0.3rem;
+      }
+      .f-sub:hover {
+        box-shadow: 0 8px 24px rgba(56, 182, 255, 0.3);
+        transform: translateY(-1px);
+      }
+
+      /* ═══════════════════════════════════════
+   SUCCESS MODAL
+═══════════════════════════════════════ */
+      .modal-bg {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(7, 20, 40, 0.75);
+        z-index: 9999;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(8px);
+      }
+      .modal-bg.show {
+        display: flex;
+      }
+      .modal-box {
+        background: var(--bg3);
+        border: 1px solid var(--bdr);
+        border-top: 3px solid var(--pri);
+        padding: 3.5rem;
+        text-align: center;
+        max-width: 460px;
+        width: 90%;
+        box-shadow: var(--shadow-lg);
+        position: relative;
+        overflow: hidden;
+      }
+      [data-theme="dark"] .modal-box {
+        border-top-color: var(--sec);
+      }
+      .modal-box::before {
+        content: "";
+        position: absolute;
+        bottom: -50px;
+        right: -50px;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        border: 1px solid var(--sh-color);
+      }
+      .modal-title {
+        font-family: "Montserrat", sans-serif;
+        font-size: 1.9rem;
+        font-weight: 900;
+        margin-bottom: 0.8rem;
+        color: var(--text);
+      }
+      .modal-text {
+        font-size: 0.9rem;
+        color: var(--sub);
+        font-weight: 300;
+        line-height: 1.75;
+        margin-bottom: 2rem;
+      }
+
+      /* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+      footer {
+        width: 100%;
+        border-top: 1px solid var(--bdr);
+        padding: 2.5rem 0;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.4s;
+      }
+      [data-theme="light"] footer {
+        background: linear-gradient(0deg, #ddeaff, #e8f1ff);
+      }
+      [data-theme="dark"] footer {
+        background: var(--bg2);
+      }
+      footer::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -60px;
+        transform: translateY(-50%);
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        border: 1px solid var(--sh-color);
+      }
+      .foot-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        position: relative;
+        z-index: 1;
+      }
+      .foot-logo {
+        height: 46px;
+        width: auto;
+        transition: filter 0.3s;
+      }
+      [data-theme="light"] .foot-logo {
+        filter: brightness(0.85) saturate(1.2);
+      }
+      [data-theme="dark"] .foot-logo {
+        filter: brightness(1.15) drop-shadow(0 0 6px rgba(56, 182, 255, 0.15));
+      }
+      .foot-copy {
+        font-size: 0.76rem;
+        color: var(--muted);
+        font-weight: 300;
+      }
+      .foot-links {
+        display: flex;
+        gap: 0.4rem;
+        list-style: none;
+        flex-wrap: wrap;
+      }
+      .foot-links a {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-decoration: none;
+        cursor: pointer;
+        padding: 0.35rem 0.8rem;
+        border: 1px solid var(--bdr);
+        border-radius: 2px;
+        transition: all 0.2s;
+      }
+      .foot-links a:hover {
+        color: var(--pri);
+        border-color: var(--pri);
+      }
+      [data-theme="dark"] .foot-links a:hover {
+        color: var(--sec);
+        border-color: var(--sec);
+      }
+
+      /* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+      @media (max-width: 960px) {
+        .nav-inner {
+          padding: 0.75rem 1.5rem;
+          flex-wrap: wrap;
+          justify-content: space-between;
+        }
+        .hero-inner {
+          grid-template-columns: 1fr !important;
+          min-height: auto;
+          padding: 2.5rem 1.5rem 3rem !important;
+        }
+        .hero-visual {
+          display: none;
+        }
+        .hero h1 {
+          font-size: clamp(2.2rem, 5vw, 3.4rem);
+        }
+        .hero-sub {
+          max-width: 100%;
+        }
+        .hero-btns {
+          justify-content: flex-start;
+        }
+        .hero-team {
+          justify-content: flex-start;
+        }
+        .hero-team-label {
+          width: auto;
+          margin-bottom: 0.5rem;
+        }
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .two-col {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .pkg-grid {
+          grid-template-columns: 1fr;
+          max-width: none;
+        }
+        .team-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .vals-grid {
+          grid-template-columns: 1fr;
+        }
+        .det-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .wrap {
+          padding: 0 1.25rem;
+        }
+        .nav-links {
+          gap: 0.35rem;
+        }
+        .nav-links li a {
+          font-size: 0.68rem;
+          padding: 0.4rem 0.8rem;
+        }
+        .theme-toggle {
+          margin-left: 0;
+        }
+        .page-hdr {
+          padding: 4.5rem 0 3rem;
+        }
+        .pkg {
+          padding: 1.6rem;
+        }
+        .contact-sec {
+          padding: 3.5rem 0 5rem;
+        }
+        .quote-text {
+          font-size: clamp(1.1rem, 2.3vw, 1.5rem);
+        }
+      }
+      @media (max-width: 700px) {
+        .nav-inner {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.85rem;
+          padding: 0.75rem 1rem;
+        }
+        .nav-links {
+          display: flex;
+          flex-wrap: wrap;
+          width: 100%;
+          justify-content: flex-start;
+        }
+        .nav-links li {
+          flex: 1 1 auto;
+        }
+        .nav-links li a {
+          width: 100%;
+          text-align: center;
+        }
+        .hero-inner {
+          grid-template-columns: 1fr !important;
+          padding: 2rem 1rem 2.5rem !important;
+        }
+        .hero-tag {
+          margin-bottom: 1.1rem;
+        }
+        .hero h1 {
+          font-size: 2.4rem;
+        }
+        .hero-sub {
+          font-size: 0.98rem;
+        }
+        .hero-btns {
+          width: 100%;
+        }
+        .hero-btns .btn {
+          width: 100%;
+          justify-content: center;
+        }
+        .mini-pkg,
+        .hv-card {
+          padding: 1rem 1rem;
+        }
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+        .team-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .pkg-grid {
+          grid-template-columns: 1fr;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+        .fr {
+          grid-template-columns: 1fr;
+        }
+        .foot-inner {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+        .foot-links {
+          justify-content: center;
+        }
+        .c-form {
+          padding: 1.5rem 1.3rem;
+        }
+        .faq-inner,
+        .quote-inner {
+          padding: 0 0.5rem;
+        }
+        .det-ov {
+          padding: 2rem 1rem 1rem;
+        }
+        .det-box {
+          padding: 1.5rem;
+        }
+        .cta-band-inner {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .cta-band {
+          padding: 3rem 0;
+        }
+        footer {
+          padding: 2rem 0;
+        }
+        .foot-links a {
+          padding: 0.45rem 0.7rem;
+          font-size: 0.68rem;
+        }
+      }
+      @media (max-width: 540px) {
+        .nav-logo img {
+          height: 48px;
+        }
+        .hero h1 {
+          font-size: 2rem;
+        }
+        .hero-sub {
+          font-size: 0.95rem;
+        }
+        .sec-h {
+          font-size: clamp(1.6rem, 4vw, 2.2rem);
+        }
+        .sec-p {
+          font-size: 0.9rem;
+        }
+        .theme-toggle {
+          width: 100%;
+          justify-content: space-between;
+        }
+        .theme-toggle-track {
+          margin-right: 0.5rem;
+        }
+        .fr {
+          grid-template-columns: 1fr;
+        }
+        .scan-options {
+          flex-direction: column;
+        }
+        .scan-opt {
+          width: 100%;
+        }
+        .foot-links {
+          gap: 0.35rem;
+        }
+        .modal-box {
+          max-width: 100%;
+          padding: 2rem;
+        }
+      }
+
+      /* ═══ SCAN OPTIES ═══ */
+      .scan-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0;
+      }
+      .scan-opt {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--bdr);
+        background: var(--bg2);
+        color: var(--sub);
+        cursor: pointer;
+        border-radius: 2px;
+        transition: all 0.2s;
+        text-align: left;
+      }
+      .scan-opt:hover {
+        border-color: var(--pri);
+        color: var(--pri);
+        background: rgba(0, 74, 173, 0.05);
+      }
+      .scan-opt.active {
+        background: rgba(0, 74, 173, 0.08);
+        color: var(--pri);
+        border-color: var(--pri);
+      }
+      [data-theme="dark"] .scan-opt.active {
+        background: rgba(56, 182, 255, 0.1);
+        color: var(--sec);
+        border-color: var(--sec);
+      }
+      [data-theme="dark"] .scan-opt:hover {
+        border-color: var(--sec);
+        color: var(--sec);
+      }
+
+      /* ═══ MINI PACKAGE CARDS (hero right column) ═══ */
+      .mini-pkg {
+        background: var(--bg3);
+        border: 1px solid var(--bdr);
+        border-left: 3px solid var(--pri);
+        padding: 0.9rem 1.1rem;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .mini-pkg:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+      .mini-pkg-feat {
+        border-color: var(--pri);
+      }
+      [data-theme="light"] .mini-pkg-feat {
+        background: #eaf3ff;
+      }
+      [data-theme="dark"] .mini-pkg-feat {
+        background: #0c1e3d;
+        border-color: rgba(56, 182, 255, 0.35);
+      }
+      .mini-pkg-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 0.4rem;
+      }
+      .mini-pkg-name {
+        font-family: "Outfit", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .mini-pkg-tier {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.57rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .mini-pkg-feats {
+        list-style: none;
+        display: grid;
+        gap: 0.18rem;
+        margin-bottom: 0.65rem;
+      }
+      .mini-pkg-feats li {
+        font-size: 0.74rem;
+        color: var(--sub);
+        font-weight: 300;
+        padding-left: 0.85rem;
+        position: relative;
+        line-height: 1.4;
+      }
+      .mini-pkg-feats li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 5px;
+        height: 1px;
+        background: var(--pri);
+        transform: translateY(-50%);
+      }
+      .mini-pkg-btn {
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.63rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 0.32rem 0.75rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        border-radius: 2px;
+      }
+      .mini-pkg-btn-out {
+        background: transparent;
+        color: var(--sub);
+        border: 1px solid var(--bdr);
+      }
+      .mini-pkg-btn-out:hover {
+        border-color: var(--pri);
+        color: var(--pri);
+      }
+      .mini-pkg-btn-prim {
+        background: linear-gradient(135deg, var(--pri), var(--sec));
+        color: #fff;
+        border: none;
+      }
+      .mini-pkg-btn-prim:hover {
+        box-shadow: 0 4px 14px rgba(56, 182, 255, 0.3);
+        transform: translateY(-1px);
+      }
+
+      /* ═══ SINGLE-PAGE OVERRIDES ═══ */
+      .pkg-details {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.4s ease,
+          opacity 0.3s ease;
+        opacity: 0;
+      }
+      .pkg-details.open {
+        max-height: 700px;
+        opacity: 1;
+      }
+      .pkg-toggle {
+        width: 100%;
+        padding: 0.82rem;
+        font-family: "Montserrat", sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-top: auto;
+        background: transparent;
+        color: var(--sub);
+        border: 1px solid var(--bdr);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      .pkg-toggle:hover {
+        border-color: var(--pri);
+        color: var(--pri);
+      }
+      [data-theme="dark"] .pkg-toggle:hover {
+        border-color: var(--sec);
+        color: var(--sec);
+      }
+      .pkg.feat .pkg-toggle {
+        background: linear-gradient(135deg, var(--pri), var(--sec));
+        color: #fff;
+        border: none;
+      }
+      .pkg.feat .pkg-toggle:hover {
+        box-shadow: 0 6px 20px rgba(56, 182, 255, 0.3);
+        transform: translateY(-1px);
+      }
+      .pkg-toggle-icon {
+        display: inline-block;
+        transition: transform 0.3s;
+        font-size: 1.1rem;
+        font-style: normal;
+      }
+      .pkg.expanded .pkg-toggle-icon {
+        transform: rotate(45deg);
+      }
+      .pkg.feat.expanded .pkg-toggle-icon {
+        transform: rotate(45deg);
+      }
+      .quote-sec {
+        padding: 5rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+      [data-theme="light"] .quote-sec {
+        background: var(--bg2);
+      }
+      [data-theme="dark"] .quote-sec {
+        background: var(--bg2);
+      }
+      .quote-inner {
+        max-width: 760px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+      .quote-mark {
+        font-size: 6rem;
+        line-height: 0.6;
+        color: var(--pri);
+        font-family: "Outfit", sans-serif;
+        font-weight: 900;
+        opacity: 0.2;
+        display: block;
+        margin-bottom: 1.5rem;
+      }
+      [data-theme="dark"] .quote-mark {
+        color: var(--sec);
+      }
+      .quote-text {
+        font-family: "Montserrat", sans-serif;
+        font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+        font-weight: 700;
+        line-height: 1.4;
+        color: var(--text);
+        margin-bottom: 1.5rem;
+      }
+      .quote-text em {
+        font-style: normal;
+        color: var(--pri);
+      }
+      [data-theme="dark"] .quote-text em {
+        color: var(--sec);
+      }
+      .quote-source {
+        font-size: 0.78rem;
+        color: var(--muted);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+      }
+      .hero-team {
+        display: flex;
+        gap: 0.6rem;
+        margin-top: 1.2rem;
+        flex-wrap: wrap;
+      }
+      .tm-sm {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--pri) 0%, #2d7ad6 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Outfit", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #fff;
+        border: 2px solid rgba(0, 74, 173, 0.2);
+        transition: transform 0.2s;
+      }
+      .tm-sm:hover {
+        transform: translateY(-2px);
+      }
+      .hero-team-label {
+        font-size: 0.72rem;
+        color: var(--muted);
+        font-family: "Montserrat", sans-serif;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        width: 100%;
+        margin-bottom: 0.2rem;
+      }
+      .cta-big-wrap {
+        text-align: center;
+        margin-top: 3rem;
+        padding-top: 2.5rem;
+        border-top: 1px solid var(--bdr);
+      }
+      .cta-big-wrap p {
+        font-size: 0.87rem;
+        color: var(--muted);
+        margin-bottom: 1.3rem;
+        font-weight: 300;
+      }
+      .no-nav-links .nav-links li a:not(.nav-cta) {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- SUCCESS MODAL -->
+    <div class="modal-bg" id="modal">
+      <div class="modal-box">
+        <div class="modal-title">Aanvraag ontvangen</div>
+        <p class="modal-text">
+          Bedankt voor uw interesse. We nemen binnen twee werkdagen contact op
+          voor een vrijblijvend kennismakingsgesprek van 45 minuten.
+        </p>
+        <button
+          class="btn btn-prim"
+          onclick="document.getElementById('modal').classList.remove('show')"
+        >
+          Sluiten
+        </button>
+      </div>
+    </div>
+
+    <!-- DETAIL OVERLAYS -->
+    <div class="det-ov" id="d-starter">
+      <div class="det-box">
+        <button class="det-close" onclick="closeDet()">Sluiten</button>
+        <div class="sec-tag">Pakket 01</div>
+        <div class="sec-h">Brand <span>Starter</span></div>
+        <p class="sec-p">
+          Het fundament voor bedrijven die professioneel willen overkomen.
+          Direct toepasbaar in al uw communicatie.
+        </p>
+        <div class="det-grid">
+          <ul class="det-steps">
+            <li>
+              <span class="ds-n">01</span>
+              <div class="ds-t">
+                <strong>Merkfundamentsessie</strong
+                ><span
+                  >Een diepgaand gesprek van 1,5 uur. Verhaal, waarden en
+                  positionering worden uitgebreid in kaart gebracht.</span
+                >
+              </div>
+            </li>
+            <li>
+              <span class="ds-n">02</span>
+              <div class="ds-t">
+                <strong>Visuele identiteit</strong
+                ><span
+                  >Logo, kleurpalet en typografie in twee varianten, volledig
+                  afgestemd op uw doelgroep.</span
+                >
+              </div>
+            </li>
+            <li>
+              <span class="ds-n">03</span>
+              <div class="ds-t">
+                <strong>Brand guide (PDF)</strong
+                ><span
+                  >Alle richtlijnen voor consistente communicatie in een
+                  overzichtelijk document.</span
+                >
+              </div>
+            </li>
+          </ul>
+          <div class="price-box">
+            <div class="price-lbl">Wat is inbegrepen</div>
+            <div
+              style="
+                font-family: &quot;Outfit&quot;, sans-serif;
+                font-size: 1.4rem;
+                font-weight: 700;
+                color: var(--pri);
+                margin-bottom: 0.4rem;
+              "
+            >
+              Brand Starter
+            </div>
+            <ul
+              style="
+                list-style: none;
+                margin-bottom: 1.2rem;
+                display: grid;
+                gap: 0.4rem;
+              "
+            >
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >Merkfundamentsessie (1,5 uur)
+              </li>
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >Kernwaarden en positionering
+              </li>
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >Logo en kleurpalet (2 varianten)
+              </li>
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >Typografie en basisrichtlijnen
+              </li>
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >1 revisieronde inbegrepen
+              </li>
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >Digitale brand guide (PDF)
+              </li>
+            </ul>
+            <button
+              class="btn btn-prim"
+              style="width: 100%"
+              onclick="
+                closeDet();
+                scrollToContact();
+              "
+            >
+              Dit pakket aanvragen
+            </button>
+            <button
+              class="btn btn-out"
+              style="width: 100%; margin-top: 0.7rem"
+              onclick="closeDet()"
+            >
+              Terug
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="det-ov" id="d-groei">
+      <div class="det-box">
+        <button class="det-close" onclick="closeDet()">Sluiten</button>
+        <div class="sec-tag">Pakket 02</div>
+        <div class="sec-h">Brand <span>Groei</span></div>
+        <p class="sec-p">
+          Naast een sterk merkfundament ontvangt u een complete
+          marketingstrategie en drie maanden begeleiding.
+        </p>
+        <div class="det-grid">
+          <ul class="det-steps">
+            <li>
+              <span class="ds-n">01</span>
+              <div class="ds-t">
+                <strong>Alles uit Brand Starter</strong
+                ><span
+                  >Merkfundamentsessie, volledige visuele identiteit en brand
+                  guide als basis.</span
+                >
+              </div>
+            </li>
+            <li>
+              <span class="ds-n">02</span>
+              <div class="ds-t">
+                <strong>Content- en marketingstrategie</strong
+                ><span
+                  >Concreet plan voor social media, content en
+                  klantcommunicatie.</span
+                >
+              </div>
+            </li>
+            <li>
+              <span class="ds-n">03</span>
+              <div class="ds-t">
+                <strong>3 maanden begeleiding</strong
+                ><span
+                  >Maandelijks overleg en ondersteuning bij de uitvoering van de
+                  strategie.</span
+                >
+              </div>
+            </li>
+            <li>
+              <span class="ds-n">04</span>
+              <div class="ds-t">
+                <strong>Concurrentieanalyse</strong
+                ><span
+                  >Inzicht in uw marktpositie ten opzichte van directe
+                  concurrenten.</span
+                >
+              </div>
+            </li>
+          </ul>
+          <div class="price-box">
+            <div class="price-lbl">Wat is inbegrepen</div>
+            <div
+              style="
+                font-family: &quot;Outfit&quot;, sans-serif;
+                font-size: 1.4rem;
+                font-weight: 700;
+                color: var(--pri);
+                margin-bottom: 0.4rem;
+              "
+            >
+              Brand Groei
+            </div>
+            <ul
+              style="
+                list-style: none;
+                margin-bottom: 1.2rem;
+                display: grid;
+                gap: 0.4rem;
+              "
+            >
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >Alles uit Brand Starter
+              </li>
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >Volledige visuele identiteit
+              </li>
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >Content- en marketingstrategie
+              </li>
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >Social media richtlijnen
+              </li>
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >Concurrentieanalyse
+              </li>
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >3 maanden begeleiding
+              </li>
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >2 revisierondes inbegrepen
+              </li>
+            </ul>
+            <button
+              class="btn btn-prim"
+              style="width: 100%"
+              onclick="
+                closeDet();
+                scrollToContact();
+              "
+            >
+              Dit pakket aanvragen
+            </button>
+            <button
+              class="btn btn-out"
+              style="width: 100%; margin-top: 0.7rem"
+              onclick="closeDet()"
+            >
+              Terug
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="det-ov" id="d-full">
+      <div class="det-box">
+        <button class="det-close" onclick="closeDet()">Sluiten</button>
+        <div class="sec-tag">Pakket 03</div>
+        <div class="sec-h">Brand <span>Full</span></div>
+        <p class="sec-p">
+          Volledige ontzorging voor bedrijven die branding en marketing
+          structureel willen aanpakken.
+        </p>
+        <div class="det-grid">
+          <ul class="det-steps">
+            <li>
+              <span class="ds-n">01</span>
+              <div class="ds-t">
+                <strong>Alles uit Brand Groei</strong
+                ><span
+                  >Volledige merkidentiteit, strategie en begeleiding
+                  inbegrepen.</span
+                >
+              </div>
+            </li>
+            <li>
+              <span class="ds-n">02</span>
+              <div class="ds-t">
+                <strong>Website advies en copywriting</strong
+                ><span
+                  >Strategisch advies en professionele teksten voor uw
+                  kernpaginas.</span
+                >
+              </div>
+            </li>
+            <li>
+              <span class="ds-n">03</span>
+              <div class="ds-t">
+                <strong>6 maanden samenwerking</strong
+                ><span
+                  >Tweewekelijks overleg en maandelijkse rapportage gedurende
+                  zes maanden.</span
+                >
+              </div>
+            </li>
+            <li>
+              <span class="ds-n">04</span>
+              <div class="ds-t">
+                <strong>Campagnestrategie</strong
+                ><span
+                  >Kwartaalplan voor gerichte campagnes afgestemd op uw
+                  doelgroep en budget.</span
+                >
+              </div>
+            </li>
+          </ul>
+          <div class="price-box">
+            <div class="price-lbl">Wat is inbegrepen</div>
+            <div
+              style="
+                font-family: &quot;Outfit&quot;, sans-serif;
+                font-size: 1.4rem;
+                font-weight: 700;
+                color: var(--pri);
+                margin-bottom: 0.4rem;
+              "
+            >
+              Brand Full
+            </div>
+            <ul
+              style="
+                list-style: none;
+                margin-bottom: 1.2rem;
+                display: grid;
+                gap: 0.4rem;
+              "
+            >
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >Alles uit Brand Groei
+              </li>
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >Website advies en copywriting
+              </li>
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >Campagnestrategie per kwartaal
+              </li>
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >6 maanden begeleiding
+              </li>
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >Maandelijkse rapportage
+              </li>
+              <li
+                style="
+                  font-size: 0.83rem;
+                  color: var(--sub);
+                  font-weight: 300;
+                  padding-left: 1rem;
+                  position: relative;
+                "
+              >
+                <span
+                  style="
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    width: 5px;
+                    height: 1px;
+                    background: var(--pri);
+                    transform: translateY(-50%);
+                  "
+                ></span
+                >Onbeperkte revisies
+              </li>
+            </ul>
+            <button
+              class="btn btn-prim"
+              style="width: 100%"
+              onclick="
+                closeDet();
+                scrollToContact();
+              "
+            >
+              Dit pakket aanvragen
+            </button>
+            <button
+              class="btn btn-out"
+              style="width: 100%; margin-top: 0.7rem"
+              onclick="closeDet()"
+            >
+              Terug
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <nav id="nav">
+      <div class="nav-inner">
+        <div class="nav-logo">
+          <img
+            src="data:image/png;base64,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"
+            alt="Brand Office"
+            id="nav-logo-img"
+          />
+        </div>
+        <ul class="nav-links">
+          <li><a href="#over">Over ons</a></li>
+          <li><a href="#pakketten">Pakketten</a></li>
+          <li><a href="#contact" class="nav-cta">Gratis kennismaking</a></li>
+        </ul>
+        <button
+          class="theme-toggle"
+          id="theme-toggle-btn"
+          onclick="toggleTheme()"
+        >
+          <div class="theme-toggle-track">
+            <div class="theme-toggle-thumb"></div>
+          </div>
+          <span class="toggle-label" id="toggle-lbl">Dark mode</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ═══ HERO ═══ -->
+    <section id="hero-section">
+      <div class="hero-grid"></div>
+      <div class="hero-glow1"></div>
+      <div class="hero-glow2"></div>
+      <div class="hero-deco" aria-hidden="true">
+        <svg
+          style="
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 700px;
+            height: 700px;
+            overflow: visible;
+          "
+          viewBox="-350 -350 700 700"
+          fill="none"
+        >
+          <circle
+            cx="0"
+            cy="0"
+            r="280"
+            stroke="rgba(0,74,173,0.13)"
+            stroke-width="1.5"
+          />
+          <circle
+            cx="0"
+            cy="0"
+            r="200"
+            stroke="rgba(0,74,173,0.10)"
+            stroke-width="1.5"
+          />
+          <circle
+            cx="0"
+            cy="0"
+            r="120"
+            stroke="rgba(56,182,255,0.12)"
+            stroke-width="1.5"
+          />
+        </svg>
+        <svg
+          style="
+            position: absolute;
+            bottom: -120px;
+            left: -120px;
+            width: 380px;
+            height: 380px;
+          "
+          viewBox="0 0 380 380"
+          fill="none"
+        >
+          <circle
+            cx="0"
+            cy="380"
+            r="240"
+            stroke="rgba(0,74,173,0.12)"
+            stroke-width="1.5"
+          />
+          <circle
+            cx="0"
+            cy="380"
+            r="160"
+            stroke="rgba(56,182,255,0.10)"
+            stroke-width="1.5"
+          />
+        </svg>
+        <div
+          style="
+            position: absolute;
+            top: 15%;
+            right: 8%;
+            width: 180px;
+            height: 180px;
+            background-image: radial-gradient(
+              circle,
+              rgba(0, 74, 173, 0.25) 1.5px,
+              transparent 1.5px
+            );
+            background-size: 20px 20px;
+          "
+        ></div>
+        <svg
+          style="
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            width: 140px;
+            height: 140px;
+          "
+          viewBox="0 0 140 140"
+          fill="none"
+        >
+          <rect
+            x="4"
+            y="4"
+            width="132"
+            height="132"
+            rx="4"
+            stroke="rgba(0,74,173,0.12)"
+            stroke-width="1.5"
+            stroke-dasharray="8 5"
+          />
+        </svg>
+        <svg
+          style="
+            position: absolute;
+            bottom: 20%;
+            right: 18%;
+            width: 80px;
+            height: 80px;
+          "
+          viewBox="0 0 80 80"
+          fill="none"
+        >
+          <polygon
+            points="40,4 76,74 4,74"
+            stroke="rgba(56,182,255,0.18)"
+            stroke-width="1.5"
+            fill="none"
+          />
+        </svg>
+      </div>
+
+      <div
+        class="hero-inner"
+        id="over"
+        style="
+          grid-template-columns: 1fr 1.15fr;
+          align-items: start;
+          padding-top: 4rem;
+          padding-bottom: 3rem;
+        "
+      >
+        <div class="hero-text">
+          <div class="hero-tag">
+            Studentenbedrijf · Branding &amp; Marketing voor het MKB
+          </div>
+          <h1>Vijf studenten,<br />één <span class="hl">helder doel</span></h1>
+          <p class="hero-sub">
+            Brand Office is opgericht door vijf studenten Ondernemerschap &amp;
+            Retail Management. Wij geloven dat professionele branding
+            toegankelijk moet zijn voor elke ondernemer, ongeacht het budget.
+            Persoonlijk, betaalbaar en strategisch volledig.
+          </p>
+          <div class="hero-btns">
+            <a href="#pakketten" class="btn btn-out">Bekijk onze pakketten</a>
+          </div>
+          <div class="hero-team">
+            <span class="hero-team-label">Ons team</span>
+            <div class="tm-sm" title="Mees, Strategie">M</div>
+            <div class="tm-sm" title="Quang, Creatie">Q</div>
+            <div class="tm-sm" title="Sem, Marketing">S</div>
+            <div class="tm-sm" title="Tijmen, Research">T</div>
+            <div class="tm-sm" title="Valentijn, Operations">V</div>
+          </div>
+          <button
+            onclick="scrollToContact()"
+            style="
+              margin-top: 1.6rem;
+              width: 100%;
+              padding: 2.2rem 2rem;
+              background: linear-gradient(135deg, var(--pri), var(--sec));
+              color: #fff;
+              font-family: &quot;Montserrat&quot;, sans-serif;
+              font-size: 1.25rem;
+              font-weight: 900;
+              letter-spacing: 0.08em;
+              text-transform: uppercase;
+              border: none;
+              cursor: pointer;
+              border-radius: 2px;
+              box-shadow: 0 10px 36px rgba(0, 74, 173, 0.28);
+              transition: all 0.2s;
+              line-height: 1.2;
+            "
+            onmouseover="
+              this.style.transform = 'translateY(-3px)';
+              this.style.boxShadow = '0 18px 48px rgba(56,182,255,0.38)';
+            "
+            onmouseout="
+              this.style.transform = '';
+              this.style.boxShadow = '0 10px 36px rgba(0,74,173,0.28)';
+            "
+          >
+            &#x2192;&nbsp; Ontvang uw gratis merkanalyse
+          </button>
+        </div>
+
+        <div
+          style="display: flex; flex-direction: column; gap: 0.8rem"
+          id="pakketten"
+        >
+          <div class="hv-card" style="padding: 1.3rem 1.5rem; margin-left: 0">
+            <div class="hv-label">MKB zonder merkidentiteit mist omzet</div>
+            <div class="hv-val">67%</div>
+            <div class="hv-desc">
+              Van de MKB-ondernemers heeft geen consistente branding
+            </div>
+            <div class="hv-bar">
+              <div class="hv-bar-fill" style="--w: 67%"></div>
+            </div>
+          </div>
+
+          <div
+            style="
+              font-family: &quot;Montserrat&quot;, sans-serif;
+              font-size: 0.6rem;
+              font-weight: 700;
+              letter-spacing: 0.18em;
+              text-transform: uppercase;
+              color: var(--muted);
+              padding-left: 2px;
+            "
+          >
+            Onze pakketten
+          </div>
+
+          <div class="mini-pkg" style="border-left-color: var(--pri)">
+            <div class="mini-pkg-top">
+              <div class="mini-pkg-name">Brand Starter</div>
+              <div class="mini-pkg-tier">Pakket 01</div>
+            </div>
+            <ul class="mini-pkg-feats">
+              <li>Merkfundamentsessie (1,5 uur)</li>
+              <li>Logo, kleurpalet &amp; typografie</li>
+              <li>Digitale brand guide (PDF)</li>
+              <li>1 revisieronde inbegrepen</li>
+            </ul>
+            <button
+              class="mini-pkg-btn mini-pkg-btn-out"
+              onclick="openDet('d-starter')"
+            >
+              Meer informatie
+            </button>
+          </div>
+
+          <div
+            class="mini-pkg mini-pkg-feat"
+            style="border-color: var(--pri); border-left-color: var(--sec)"
+          >
+            <div class="mini-pkg-top">
+              <div>
+                <div class="mini-pkg-name">Brand Groei</div>
+                <div
+                  style="
+                    display: inline-block;
+                    margin-top: 0.25rem;
+                    background: linear-gradient(135deg, var(--pri), var(--sec));
+                    color: #fff;
+                    font-family: &quot;Montserrat&quot;, sans-serif;
+                    font-size: 0.52rem;
+                    font-weight: 800;
+                    letter-spacing: 0.12em;
+                    text-transform: uppercase;
+                    padding: 0.18rem 0.55rem;
+                  "
+                >
+                  Meest gekozen
+                </div>
+              </div>
+              <div class="mini-pkg-tier">Pakket 02</div>
+            </div>
+            <ul class="mini-pkg-feats">
+              <li>Alles uit Brand Starter</li>
+              <li>Content- &amp; marketingstrategie</li>
+              <li>Concurrentieanalyse</li>
+              <li>3 maanden begeleiding</li>
+            </ul>
+            <button
+              class="mini-pkg-btn mini-pkg-btn-out"
+              onclick="openDet('d-groei')"
+            >
+              Meer informatie
+            </button>
+          </div>
+
+          <div class="mini-pkg" style="border-left-color: var(--acc)">
+            <div class="mini-pkg-top">
+              <div class="mini-pkg-name">Brand Full</div>
+              <div class="mini-pkg-tier">Pakket 03</div>
+            </div>
+            <ul class="mini-pkg-feats">
+              <li>Alles uit Brand Groei</li>
+              <li>Website advies &amp; copywriting</li>
+              <li>6 maanden begeleiding</li>
+              <li>Onbeperkte revisies</li>
+            </ul>
+            <button
+              class="mini-pkg-btn mini-pkg-btn-out"
+              onclick="openDet('d-full')"
+            >
+              Meer informatie
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ QUOTE ═══ -->
+    <section class="quote-sec">
+      <div
+        aria-hidden="true"
+        style="
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        "
+      >
+        <svg
+          style="
+            position: absolute;
+            top: -60px;
+            left: -60px;
+            width: 320px;
+            height: 320px;
+          "
+          viewBox="0 0 320 320"
+          fill="none"
+        >
+          <circle
+            cx="0"
+            cy="0"
+            r="200"
+            stroke="rgba(0,74,173,0.09)"
+            stroke-width="1.5"
+          />
+          <circle
+            cx="0"
+            cy="0"
+            r="130"
+            stroke="rgba(56,182,255,0.08)"
+            stroke-width="1.5"
+          />
+        </svg>
+        <svg
+          style="
+            position: absolute;
+            bottom: -60px;
+            right: -60px;
+            width: 320px;
+            height: 320px;
+          "
+          viewBox="0 0 320 320"
+          fill="none"
+        >
+          <circle
+            cx="320"
+            cy="320"
+            r="200"
+            stroke="rgba(56,182,255,0.09)"
+            stroke-width="1.5"
+          />
+        </svg>
+      </div>
+      <div class="wrap">
+        <div class="quote-inner">
+          <span class="quote-mark">&ldquo;</span>
+          <p class="quote-text">
+            Jouw klant beoordeelt jou <em>voordat</em> hij je ontmoet.<br />
+            Zorg dat je merk die eerste indruk niet verspilt.
+          </p>
+          <div class="quote-source">
+            Brand Office, opgericht om het MKB sterker te maken
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FAQ ═══ -->
+    <section class="faq-sec">
+      <div
+        aria-hidden="true"
+        style="
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        "
+      >
+        <svg
+          style="
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+          "
+          viewBox="0 0 400 400"
+          fill="none"
+        >
+          <circle
+            cx="0"
+            cy="0"
+            r="250"
+            stroke="rgba(0,74,173,0.09)"
+            stroke-width="1.5"
+          />
+          <circle
+            cx="0"
+            cy="0"
+            r="170"
+            stroke="rgba(0,74,173,0.07)"
+            stroke-width="1.5"
+          />
+        </svg>
+        <svg
+          style="
+            position: absolute;
+            bottom: -80px;
+            right: -80px;
+            width: 360px;
+            height: 360px;
+          "
+          viewBox="0 0 360 360"
+          fill="none"
+        >
+          <circle
+            cx="360"
+            cy="360"
+            r="220"
+            stroke="rgba(56,182,255,0.10)"
+            stroke-width="1.5"
+          />
+        </svg>
+      </div>
+      <div class="wrap">
+        <div class="faq-inner">
+          <div class="sec-tag">Veelgestelde vragen</div>
+          <h2 class="sec-h">Alles wat u wilt <span>weten</span></h2>
+          <div style="margin-top: 2.5rem">
+            <div class="faq-item">
+              <button class="faq-q" onclick="faq(this)">
+                Voor welke bedrijven is Brand Office geschikt?<span
+                  class="faq-ic"
+                  >+</span
+                >
+              </button>
+              <div class="faq-a">
+                Brand Office richt zich op micro- en kleine bedrijven in
+                Nederland met maximaal 50 medewerkers die een professionele
+                merkidentiteit willen maar geen budget hebben voor grote bureaus
+                die opdrachten van tienduizend euro of meer vereisen.
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" onclick="faq(this)">
+                Wat is het verschil tussen branding en marketing?<span
+                  class="faq-ic"
+                  >+</span
+                >
+              </button>
+              <div class="faq-a">
+                Branding is wie u bent. Marketing is hoe u dat vertelt. Wij
+                geloven dat marketing pas werkt als de branding klopt. Daarom
+                beginnen we altijd bij het fundament.
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" onclick="faq(this)">
+                Hoelang duurt een traject?<span class="faq-ic">+</span>
+              </button>
+              <div class="faq-a">
+                Afhankelijk van het pakket duurt een traject gemiddeld twee tot
+                zes weken. We werken altijd met een vaste planning en houden u
+                gedurende het hele proces op de hoogte.
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" onclick="faq(this)">
+                Wat levert het kennismakingsgesprek op?<span class="faq-ic"
+                  >+</span
+                >
+              </button>
+              <div class="faq-a">
+                In het vrijblijvende gesprek van 45 minuten bespreken we uw
+                situatie en doelen. U ontvangt een concrete merkanalyse,
+                ongeacht of we verdergaan.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CONTACT ═══ -->
+    <section id="contact" class="contact-sec">
+      <div
+        aria-hidden="true"
+        style="
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        "
+      >
+        <svg
+          style="
+            position: absolute;
+            top: -80px;
+            right: -80px;
+            width: 350px;
+            height: 350px;
+          "
+          viewBox="0 0 350 350"
+          fill="none"
+        >
+          <circle
+            cx="350"
+            cy="0"
+            r="220"
+            stroke="rgba(0,74,173,0.10)"
+            stroke-width="1.5"
+          />
+          <circle
+            cx="350"
+            cy="0"
+            r="140"
+            stroke="rgba(56,182,255,0.08)"
+            stroke-width="1.5"
+          />
+        </svg>
+        <div
+          style="
+            position: absolute;
+            bottom: 3rem;
+            left: 3rem;
+            width: 80px;
+            height: 160px;
+            background-image: radial-gradient(
+              circle,
+              rgba(0, 74, 173, 0.22) 1.5px,
+              transparent 1.5px
+            );
+            background-size: 16px 16px;
+          "
+        ></div>
+      </div>
+      <div class="wrap">
+        <div
+          style="
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+          "
+        >
+          <div class="sec-tag">Gratis kennismaking &amp; branding scan</div>
+          <h2 class="sec-h">Ontdek wat uw merk <span>mist</span></h2>
+          <p class="sec-p" style="margin: 0.5rem auto 0; text-align: center">
+            Vul de scan in. Wij analyseren uw situatie en nemen binnen twee
+            werkdagen contact op voor een vrijblijvend gesprek van 45 minuten.
+          </p>
+        </div>
+        <div class="contact-grid">
+          <!-- LEFT: info -->
+          <div class="ci">
+            <p>
+              In het kennismakingsgesprek bespreken we uw merkanalyse, doelen en
+              mogelijkheden. U ontvangt altijd een concreet advies, ongeacht of
+              we verdergaan.
+            </p>
+            <div class="c-det">
+              <div class="c-lbl">Email</div>
+              <div class="c-val">info@brandoffice.nl</div>
+            </div>
+            <div class="c-det">
+              <div class="c-lbl">LinkedIn</div>
+              <div class="c-val">linkedin.com/company/brandoffice</div>
+            </div>
+            <div class="c-det">
+              <div class="c-lbl">Instagram</div>
+              <div class="c-val">@brandoffice.nl</div>
+            </div>
+            <div class="c-det" style="border-bottom: none">
+              <div class="c-lbl">Locatie</div>
+              <div class="c-val">Nederland, op locatie of online</div>
+            </div>
+
+            <div
+              style="
+                margin-top: 2rem;
+                padding: 1.6rem;
+                background: var(--bg2);
+                border: 1px solid var(--bdr);
+                border-left: 3px solid var(--pri);
+                position: relative;
+                overflow: hidden;
+                box-shadow: var(--shadow);
+              "
+            >
+              <div
+                style="
+                  position: absolute;
+                  bottom: -20px;
+                  right: -20px;
+                  width: 80px;
+                  height: 80px;
+                  border-radius: 50%;
+                  border: 1px solid var(--sh-color);
+                "
+              ></div>
+              <div
+                style="
+                  font-family: &quot;Montserrat&quot;, sans-serif;
+                  font-size: 0.62rem;
+                  font-weight: 700;
+                  letter-spacing: 0.18em;
+                  text-transform: uppercase;
+                  color: var(--pri);
+                  margin-bottom: 0.5rem;
+                "
+              >
+                Wat u krijgt
+              </div>
+              <ul style="list-style: none; display: grid; gap: 0.55rem">
+                <li
+                  style="
+                    font-size: 0.84rem;
+                    color: var(--sub);
+                    font-weight: 300;
+                    display: flex;
+                    gap: 0.7rem;
+                    align-items: flex-start;
+                  "
+                >
+                  <span
+                    style="
+                      width: 3px;
+                      min-height: 14px;
+                      background: var(--pri);
+                      flex-shrink: 0;
+                      margin-top: 4px;
+                      border-radius: 2px;
+                      display: inline-block;
+                    "
+                  ></span
+                  >Gratis merkanalyse op basis van uw antwoorden
+                </li>
+                <li
+                  style="
+                    font-size: 0.84rem;
+                    color: var(--sub);
+                    font-weight: 300;
+                    display: flex;
+                    gap: 0.7rem;
+                    align-items: flex-start;
+                  "
+                >
+                  <span
+                    style="
+                      width: 3px;
+                      min-height: 14px;
+                      background: var(--pri);
+                      flex-shrink: 0;
+                      margin-top: 4px;
+                      border-radius: 2px;
+                      display: inline-block;
+                    "
+                  ></span
+                  >Persoonlijk gesprek van 45 minuten
+                </li>
+                <li
+                  style="
+                    font-size: 0.84rem;
+                    color: var(--sub);
+                    font-weight: 300;
+                    display: flex;
+                    gap: 0.7rem;
+                    align-items: flex-start;
+                  "
+                >
+                  <span
+                    style="
+                      width: 3px;
+                      min-height: 14px;
+                      background: var(--pri);
+                      flex-shrink: 0;
+                      margin-top: 4px;
+                      border-radius: 2px;
+                      display: inline-block;
+                    "
+                  ></span
+                  >Concreet advies, geen verplichtingen
+                </li>
+                <li
+                  style="
+                    font-size: 0.84rem;
+                    color: var(--sub);
+                    font-weight: 300;
+                    display: flex;
+                    gap: 0.7rem;
+                    align-items: flex-start;
+                  "
+                >
+                  <span
+                    style="
+                      width: 3px;
+                      min-height: 14px;
+                      background: var(--sec);
+                      flex-shrink: 0;
+                      margin-top: 4px;
+                      border-radius: 2px;
+                      display: inline-block;
+                    "
+                  ></span
+                  >Reactie binnen 2 werkdagen
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- RIGHT: comprehensive form -->
+          <div class="c-form" style="padding: 2rem 2.2rem">
+            <!-- SECTIE 1: BASISINFO -->
+            <div
+              style="
+                font-family: &quot;Montserrat&quot;, sans-serif;
+                font-size: 0.62rem;
+                font-weight: 700;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                color: var(--pri);
+                margin-bottom: 1rem;
+              "
+            >
+              Uw bedrijf
+            </div>
+            <div class="fr">
+              <div class="fg">
+                <label class="fl">Voornaam</label
+                ><input class="fi" type="text" placeholder="Jan" id="f1" />
+              </div>
+              <div class="fg">
+                <label class="fl">Achternaam</label
+                ><input class="fi" type="text" placeholder="Jansen" id="f2" />
+              </div>
+            </div>
+            <div class="fg">
+              <label class="fl">E-mailadres</label
+              ><input
+                class="fi"
+                type="email"
+                placeholder="jan@bedrijf.nl"
+                id="f3"
+              />
+            </div>
+            <div class="fr" style="margin-bottom: 0">
+              <div class="fg">
+                <label class="fl">Bedrijfsnaam</label
+                ><input
+                  class="fi"
+                  type="text"
+                  placeholder="Uw bedrijfsnaam"
+                  id="f4"
+                />
+              </div>
+              <div class="fg">
+                <label class="fl">Sector</label
+                ><select class="fs" id="f-sector">
+                  <option value="">Selecteer uw sector</option>
+                  <option>Detailhandel / Retail</option>
+                  <option>Horeca &amp; Catering</option>
+                  <option>Zakelijke dienstverlening</option>
+                  <option>Bouw &amp; Vastgoed</option>
+                  <option>Gezondheid &amp; Zorg</option>
+                  <option>Technologie &amp; IT</option>
+                  <option>Onderwijs &amp; Coaching</option>
+                  <option>Mode &amp; Beauty</option>
+                  <option>Sport &amp; Fitness</option>
+                  <option>Creatief &amp; Media</option>
+                  <option>Overig</option>
+                </select>
+              </div>
+            </div>
+
+            <div
+              style="height: 1px; background: var(--bdr); margin: 1.6rem 0"
+            ></div>
+
+            <!-- SECTIE 2: BEDRIJFSFASE -->
+            <div
+              style="
+                font-family: &quot;Montserrat&quot;, sans-serif;
+                font-size: 0.62rem;
+                font-weight: 700;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                color: var(--pri);
+                margin-bottom: 0.8rem;
+              "
+            >
+              Fase van uw bedrijf
+            </div>
+            <div class="scan-options" id="fase-options">
+              <button
+                class="scan-opt"
+                onclick="selectScan(this, 'fase-options')"
+              >
+                Starter
+                <span style="font-weight: 300; font-size: 0.8em"
+                  >(0–1 jaar)</span
+                >
+              </button>
+              <button
+                class="scan-opt"
+                onclick="selectScan(this, 'fase-options')"
+              >
+                Groeiend
+                <span style="font-weight: 300; font-size: 0.8em"
+                  >(1–5 jaar)</span
+                >
+              </button>
+              <button
+                class="scan-opt"
+                onclick="selectScan(this, 'fase-options')"
+              >
+                Gevestigd
+                <span style="font-weight: 300; font-size: 0.8em"
+                  >(5+ jaar)</span
+                >
+              </button>
+              <button
+                class="scan-opt"
+                onclick="selectScan(this, 'fase-options')"
+              >
+                Rebranding
+              </button>
+            </div>
+
+            <div
+              style="height: 1px; background: var(--bdr); margin: 1.6rem 0"
+            ></div>
+
+            <!-- SECTIE 3: BRANDING UITDAGING -->
+            <div
+              style="
+                font-family: &quot;Montserrat&quot;, sans-serif;
+                font-size: 0.62rem;
+                font-weight: 700;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                color: var(--pri);
+                margin-bottom: 0.4rem;
+              "
+            >
+              Grootste branding uitdaging
+            </div>
+            <p
+              style="
+                font-size: 0.78rem;
+                color: var(--muted);
+                margin-bottom: 0.8rem;
+                font-weight: 300;
+              "
+            >
+              Selecteer alles wat van toepassing is
+            </p>
+            <div class="scan-options scan-multi" id="uitdaging-options">
+              <button class="scan-opt" onclick="selectMulti(this)">
+                Geen consistente huisstijl
+              </button>
+              <button class="scan-opt" onclick="selectMulti(this)">
+                Onduidelijke merkboodschap
+              </button>
+              <button class="scan-opt" onclick="selectMulti(this)">
+                Zwakke online aanwezigheid
+              </button>
+              <button class="scan-opt" onclick="selectMulti(this)">
+                Onderscheiden van concurrenten
+              </button>
+              <button class="scan-opt" onclick="selectMulti(this)">
+                Geen doelgerichte strategie
+              </button>
+              <button class="scan-opt" onclick="selectMulti(this)">
+                Te weinig naamsbekendheid
+              </button>
+              <button class="scan-opt" onclick="selectMulti(this)">
+                Onduidelijke doelgroep
+              </button>
+              <button class="scan-opt" onclick="selectMulti(this)">
+                Onprofessionele uitstraling
+              </button>
+            </div>
+
+            <div
+              style="height: 1px; background: var(--bdr); margin: 1.6rem 0"
+            ></div>
+
+            <!-- SECTIE 4: PROBLEMEN + PAKKET -->
+            <div
+              style="
+                font-family: &quot;Montserrat&quot;, sans-serif;
+                font-size: 0.62rem;
+                font-weight: 700;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                color: var(--pri);
+                margin-bottom: 0.8rem;
+              "
+            >
+              Uw situatie
+            </div>
+            <div class="fg">
+              <label class="fl"
+                >Welke problemen ervaart u bij marketing &amp; branding?</label
+              ><textarea
+                class="ft"
+                style="min-height: 80px"
+                placeholder="Beschrijf kort welke problemen u ervaart. Bijvoorbeeld: 'Mijn logo ziet er niet professioneel uit', 'Ik weet niet hoe ik mijn doelgroep bereik'..."
+                id="f-problemen"
+              ></textarea>
+            </div>
+            <div class="fr">
+              <div class="fg">
+                <label class="fl">Gewenst pakket</label
+                ><select class="fs" id="f5">
+                  <option value="">Selecteer een optie</option>
+                  <option>Brand Starter</option>
+                  <option>Brand Groei (Aanbevolen)</option>
+                  <option>Brand Full</option>
+                  <option>Ik weet het nog niet, graag advies</option>
+                </select>
+              </div>
+              <div class="fg">
+                <label class="fl">Extra toelichting (optioneel)</label
+                ><input
+                  class="fi"
+                  type="text"
+                  placeholder="Aanvullingen..."
+                  id="f6"
+                />
+              </div>
+            </div>
+
+            <button
+              class="f-sub"
+              onclick="submitForm()"
+              style="margin-top: 1.2rem"
+            >
+              Gratis merkanalyse aanvragen &#x2192;
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer>
+      <div class="wrap">
+        <div class="foot-inner">
+          <img
+            src="data:image/png;base64,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"
+            alt="Brand Office"
+            class="foot-logo"
+          />
+          <span class="foot-copy"
+            >Brand Office &copy; 2026 &nbsp;|&nbsp; Branding &amp; Marketing
+            voor het MKB</span
+          >
+          <ul class="foot-links">
+            <li><a href="#over">Over ons</a></li>
+            <li><a href="#pakketten">Pakketten</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      function toggleTheme() {
+        var html = document.documentElement;
+        var isDark = html.getAttribute("data-theme") === "dark";
+        html.setAttribute("data-theme", isDark ? "light" : "dark");
+        document.getElementById("toggle-lbl").textContent = isDark
+          ? "Dark mode"
+          : "Light mode";
+      }
+
+      function togglePkg(btn) {
+        var card = btn.closest(".pkg");
+        var details = card.querySelector(".pkg-details");
+        var isOpen = details.classList.contains("open");
+        details.classList.toggle("open", !isOpen);
+        card.classList.toggle("expanded", !isOpen);
+        btn.querySelector("span:first-child").textContent = isOpen
+          ? "Wat zit er in?"
+          : "Minder zien";
+        btn.querySelector(".pkg-toggle-icon").textContent = isOpen
+          ? "+"
+          : "&times;";
+      }
+
+      function openDet(id) {
+        document.getElementById(id).classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
+      function closeDet() {
+        document.querySelectorAll(".det-ov.open").forEach(function (el) {
+          el.classList.remove("open");
+        });
+        document.body.style.overflow = "";
+      }
+      function faq(btn) {
+        var i = btn.closest(".faq-item");
+        var o = i.classList.contains("open");
+        document.querySelectorAll(".faq-item.open").forEach(function (x) {
+          x.classList.remove("open");
+        });
+        if (!o) i.classList.add("open");
+      }
+
+      function scrollToContact() {
+        document
+          .getElementById("contact")
+          .scrollIntoView({ behavior: "smooth" });
+      }
+
+      function selectScan(btn, groupId) {
+        document
+          .getElementById(groupId)
+          .querySelectorAll(".scan-opt")
+          .forEach(function (b) {
+            b.classList.remove("active");
+          });
+        btn.classList.add("active");
+      }
+      function selectMulti(btn) {
+        btn.classList.toggle("active");
+      }
+      function submitForm() {
+        var n = document.getElementById("f1").value,
+          e = document.getElementById("f3").value;
+        if (!n || !e) {
+          if (!n)
+            document.getElementById("f1").style.borderColor =
+              "rgba(0,74,173,0.5)";
+          if (!e)
+            document.getElementById("f3").style.borderColor =
+              "rgba(0,74,173,0.5)";
+          return;
+        }
+        document.getElementById("modal").classList.add("show");
+      }
+
+      window.addEventListener("scroll", function () {
+        document.getElementById("nav").style.background =
+          window.scrollY > 40
+            ? document.documentElement.getAttribute("data-theme") === "dark"
+              ? "rgba(4,12,30,0.99)"
+              : "rgba(255,255,255,0.99)"
+            : document.documentElement.getAttribute("data-theme") === "dark"
+              ? "rgba(4,12,30,0.95)"
+              : "rgba(255,255,255,0.95)";
+      });
+
+      // Smooth scroll for all anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener("click", function (e) {
+          var target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
