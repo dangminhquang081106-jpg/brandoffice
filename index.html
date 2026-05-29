@@ -1,0 +1,559 @@
+﻿<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BrandOffice</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --background-1: #7c3aed;
+        --background-2: #06b6d4;
+        --surface: #ffffff;
+        --surface-soft: rgba(255, 255, 255, 0.94);
+        --text: #0b1220;
+        --muted: #475569;
+        --accent: #7dd3fc;
+        --accent-strong: #7c3aed;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(255, 255, 255, 0.16),
+            transparent 30%
+          ),
+          linear-gradient(180deg, #30a3e6 0%, #0f4c7f 100%);
+        color: var(--text);
+        font-family: "Inter", "Segoe UI", sans-serif;
+      }
+
+      .logo-bar {
+        background: var(--surface);
+        padding: 18px 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 18px 42px rgba(15, 23, 42, 0.12);
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .logo-bar img {
+        width: 10%;
+        max-width: 140px;
+        height: auto;
+      }
+
+      main {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 32px 24px 48px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(300px, 1.1fr) minmax(280px, 0.9fr);
+        gap: 24px;
+        align-items: start;
+      }
+
+      .intro-frame {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.96),
+          rgba(255, 255, 255, 0.92)
+        );
+        border-radius: 28px;
+        padding: 36px 32px;
+        box-shadow: 0 24px 60px rgba(2, 6, 23, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .intro-frame .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+        color: var(--accent-strong);
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+      }
+
+      .intro-list {
+        margin: 24px 0 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 14px;
+      }
+
+      .intro-list li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--muted);
+        font-size: 0.98rem;
+      }
+
+      .intro-list svg {
+        width: 18px;
+        height: 18px;
+        color: var(--accent);
+        flex-shrink: 0;
+      }
+
+      .intro-frame h1 {
+        margin: 0 0 12px;
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        color: var(--accent-strong);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+
+      .intro-frame p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.85;
+        font-size: 1rem;
+      }
+
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(220px, 1fr));
+        gap: 18px;
+      }
+
+      .card {
+        background: var(--surface-soft);
+        border-radius: 28px;
+        padding: 26px 24px;
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+        border: 1px solid rgba(15, 23, 42, 0.06);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .card-label {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #0f4c7f;
+      }
+
+      .card-score {
+        color: var(--accent-strong);
+        font-weight: 700;
+      }
+
+      .chart-block {
+        height: 10px;
+        width: 100%;
+        background: rgba(15, 73, 126, 0.08);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .chart-bar {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent-strong), var(--accent));
+        border-radius: 999px;
+      }
+
+      .card h2 {
+        margin: 0 0 10px;
+        font-size: 1.35rem;
+        color: #0f4c7f;
+      }
+
+      .card p {
+        margin: 0 0 20px;
+        color: var(--muted);
+        line-height: 1.7;
+        font-size: 0.98rem;
+      }
+
+      .card button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient(
+          135deg,
+          var(--accent-strong),
+          var(--accent)
+        );
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          transform 0.22s ease,
+          box-shadow 0.22s ease;
+      }
+
+      .card button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 16px 30px rgba(46, 123, 255, 0.2);
+      }
+
+      .card-text {
+        margin-top: 18px;
+        display: none;
+        color: #334155;
+        background: #f8fbff;
+        padding: 18px 18px 16px;
+        border-radius: 20px;
+        border: 1px solid rgba(56, 189, 248, 0.16);
+        line-height: 1.75;
+      }
+
+      /* Modal / popup */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(2, 6, 23, 0.56);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 60;
+        padding: 24px;
+      }
+
+      .modal-overlay.show {
+        display: flex;
+      }
+
+      .modal-panel {
+        width: 100%;
+        max-width: 780px;
+        background: var(--surface-soft);
+        border-radius: 20px;
+        padding: 26px 28px;
+        box-shadow: 0 30px 80px rgba(2, 6, 23, 0.38);
+        border: 1px solid rgba(15, 73, 126, 0.06);
+        transform: translateY(8px);
+        transition:
+          transform 220ms ease,
+          opacity 220ms ease;
+      }
+
+      .modal-panel.show {
+        transform: translateY(0);
+      }
+
+      .modal-panel h3 {
+        margin: 0 0 12px;
+        font-size: 1.35rem;
+        color: var(--accent-strong);
+      }
+
+      .modal-panel ul {
+        margin: 0;
+        padding: 0 0 0 18px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .modal-close {
+        position: absolute;
+        right: 20px;
+        top: 18px;
+        background: transparent;
+        border: none;
+        font-size: 22px;
+        color: #0f172a;
+        cursor: pointer;
+      }
+
+      .cta-center {
+        margin: 48px auto 0;
+        max-width: 520px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+      }
+
+      .cta-center button {
+        width: auto;
+        max-width: 300px;
+        padding: 14px 22px;
+        border-radius: 14px;
+        border: none;
+        background: linear-gradient(90deg, #ff7ab6, #7c3aed);
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 18px 40px rgba(124, 58, 237, 0.18);
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease;
+      }
+
+      .cta-center button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 24px 60px rgba(124, 58, 237, 0.22);
+      }
+
+      @media (max-width: 960px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        main {
+          padding: 24px 18px 32px;
+        }
+
+        .intro-frame,
+        .card {
+          padding: 24px;
+        }
+
+        .card button,
+        .cta-center button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="logo-bar">
+      <img src="Picture2.png" alt="BrandOffice logo" />
+    </div>
+
+    <main>
+      <div class="hero">
+        <div class="intro-frame">
+          <h1>All-in branding/marketingbureau 2</h1>
+          <p>
+            Brand Office is opgericht door vijf studenten met een frisse blik op
+            branding. Wij maken professionele en toegankelijke branding die
+            meteen vriendelijk en opvallend voelt — perfect voor start-ups en
+            groeiende merken.
+          </p>
+          <ul class="intro-list">
+            <li>
+              <svg
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.00002 11.2L2.80002 8L1.86669 8.93333L6.00002 13.0667L15.0667 3.99999L14.1334 3.06666L6.00002 11.2Z"
+                  fill="currentColor"
+                />
+              </svg>
+              Snelle, heldere branding op maat
+            </li>
+            <li>
+              <svg
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.00002 11.2L2.80002 8L1.86669 8.93333L6.00002 13.0667L15.0667 3.99999L14.1334 3.06666L6.00002 11.2Z"
+                  fill="currentColor"
+                />
+              </svg>
+              Eenvoudige communicatie, professionele impact
+            </li>
+            <li>
+              <svg
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.00002 11.2L2.80002 8L1.86669 8.93333L6.00002 13.0667L15.0667 3.99999L14.1334 3.06666L6.00002 11.2Z"
+                  fill="currentColor"
+                />
+              </svg>
+              Flexibele oplossingen voor elk budget
+            </li>
+          </ul>
+        </div>
+
+        <div class="cards-grid">
+          <div class="card" id="card-1">
+            <h2>Brand Starter</h2>
+            <p>
+              Het fundament voor bedrijven die professioneel willen overkomen.
+              Direct toepasbaar in al uw communicatie..
+            </p>
+            <button data-target="card-1">Lees meer</button>
+          </div>
+
+          <div class="card" id="card-2">
+            <h2>Brand Groei</h2>
+            <p>
+              Naast een sterk merkfundament ontvangt u een complete
+              marketingstrategie en drie maanden begeleiding.
+            </p>
+            <button data-target="card-2">Lees meer</button>
+          </div>
+
+          <div class="card" id="card-3">
+            <h2>Brand Full</h2>
+            <p>
+              Volledige ontzorging voor bedrijven die branding en marketing
+              structureel willen aanpakken.
+            </p>
+            <button data-target="card-3">Lees meer</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-center">
+        <button id="open-form">GRATIS MERKCONSULT AANVRAGEN</button>
+      </div>
+    </main>
+
+    <!-- Modal overlay -->
+    <div id="info-modal" class="modal-overlay" aria-hidden="true">
+      <div
+        class="modal-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
+        <button class="modal-close" aria-label="Close modal">×</button>
+        <h3 id="modal-title">Titel</h3>
+        <ul id="modal-list"></ul>
+      </div>
+    </div>
+
+    <script>
+      const cardData = {
+        "card-1": {
+          title: "Brand Starter — Strategie",
+          items: [
+            "Marktanalyse en concurrentieonderzoek",
+            "Positionering en kernboodschap",
+            "Doelgroepdefinitie en buyer persona’s",
+            "Implementatie-roadmap (6-12 weken)",
+          ],
+        },
+        "card-2": {
+          title: "Design & identiteit — Creatie",
+          items: [
+            "Alles uit Brand Starter",
+            "Volledige visuele identiteit",
+            "Content- en marketingstrategie",
+            "Social media richtlijnen",
+            "Concurrentieanalyse",
+            "3 maanden begeleiding",
+            "2 revisierondes inbegrepen",
+          ],
+        },
+        "card-3": {
+          title: "Marketing support — Support",
+          items: [
+            "Alles uit Brand Groei",
+            "Website advies en copywriting",
+            "Campagnestrategie per kwartaal",
+            "6 maanden begeleiding",
+            "Maandelijkse rapportage",
+            "Onbeperkte revisies",
+          ],
+        },
+      };
+
+      const modal = document.getElementById("info-modal");
+      const modalPanel = modal.querySelector(".modal-panel");
+      const modalTitle = document.getElementById("modal-title");
+      const modalList = document.getElementById("modal-list");
+      const modalClose = modal.querySelector(".modal-close");
+
+      function openModal(cardId) {
+        const data = cardData[cardId] || {
+          title: "Info",
+          items: ["Geen details beschikbaar."],
+        };
+        modalTitle.textContent = data.title;
+        modalList.innerHTML = "";
+        data.items.forEach((it) => {
+          const li = document.createElement("li");
+          li.textContent = it;
+          modalList.appendChild(li);
+        });
+        modal.classList.add("show");
+        modalPanel.classList.add("show");
+        modal.setAttribute("aria-hidden", "false");
+        // focus management
+        modalClose.focus();
+      }
+
+      function closeModal() {
+        modal.classList.remove("show");
+        modalPanel.classList.remove("show");
+        modal.setAttribute("aria-hidden", "true");
+      }
+
+      // wire card buttons
+      document.querySelectorAll(".card button").forEach((button) => {
+        button.addEventListener("click", (e) => {
+          const card = button.closest(".card");
+          const id = card && card.id ? card.id : button.dataset.target;
+          openModal(id);
+        });
+      });
+
+      // close interactions
+      modalClose.addEventListener("click", closeModal);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("show"))
+          closeModal();
+      });
+
+      // original small expand behavior preserved (keeps text blocks hidden by default)
+      document.querySelectorAll(".card button").forEach((button) => {
+        button.addEventListener("click", () => {
+          const card = button.closest(".card");
+          const text = card.querySelector(".card-text");
+          if (!text) return;
+          // hide others
+          document
+            .querySelectorAll(".card-text")
+            .forEach((el) => (el.style.display = "none"));
+          text.style.display = "block";
+        });
+      });
+
+      document.getElementById("open-form").addEventListener("click", () => {
+        window.location.href = "form.html";
+      });
+    </script>
+  </body>
+</html>

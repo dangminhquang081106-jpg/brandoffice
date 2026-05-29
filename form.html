@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BrandOffice Aanvraag</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-start: #7c3aed;
+        --bg-end: #06b6d4;
+        --surface: rgba(255, 255, 255, 0.12);
+        --surface-strong: rgba(255, 255, 255, 0.24);
+        --text: #f8fafc;
+        --muted: #cbd5e1;
+        --accent: #ff7ab6;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(255, 255, 255, 0.06),
+            transparent 28%
+          ),
+          linear-gradient(180deg, var(--bg-start), var(--bg-end));
+        color: var(--text);
+        font-family:
+          "Poppins",
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+      }
+
+      .container {
+        width: min(600px, calc(100% - 32px));
+        background: var(--surface);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 32px;
+        padding: 40px;
+        box-shadow: 0 32px 80px rgba(15, 23, 42, 0.2);
+        backdrop-filter: blur(16px);
+      }
+
+      h1 {
+        margin: 0 0 14px;
+        font-size: clamp(2rem, 3vw, 2.8rem);
+        color: #f8fafc;
+      }
+
+      p {
+        margin: 0 0 30px;
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        background: rgba(255, 255, 255, 0.12);
+        color: #eef2ff;
+        padding: 16px 18px;
+        font-size: 1rem;
+        outline: none;
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: rgba(226, 232, 240, 0.7);
+      }
+
+      select {
+        background: rgba(255, 255, 255, 0.18) !important;
+      }
+
+      select option {
+        background: #1e293b;
+        color: #f8fafc;
+      }
+
+      textarea {
+        min-height: 180px;
+        resize: vertical;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #eef2ff;
+        font-weight: 600;
+      }
+
+      .field-note {
+        margin-top: 6px;
+        margin-bottom: 18px;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 0.94rem;
+      }
+
+      .step-indicator {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-bottom: 30px;
+      }
+
+      .step {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.18);
+        color: rgba(255, 255, 255, 0.7);
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+      }
+
+      .step.active {
+        background: #ffffff;
+        color: #7c3aed;
+      }
+
+      .form-step {
+        display: none;
+      }
+
+      .form-step.active {
+        display: block;
+      }
+
+      .section-heading {
+        margin: 0 0 10px;
+        font-size: 1.1rem;
+        color: #f8fafc;
+      }
+
+      .subheading {
+        margin: 0 0 18px;
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+
+      .radio-group,
+      .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+
+      .radio-item,
+      .checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+      }
+
+      input[type="radio"],
+      input[type="checkbox"] {
+        width: auto !important;
+        padding: 0 !important;
+        accent-color: #ff7ab6;
+        cursor: pointer;
+      }
+
+      .radio-label,
+      .checkbox-label {
+        margin: 0;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      .example-box {
+        margin: 12px 0 24px;
+        padding: 14px 16px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        border-left: 3px solid #ff7ab6;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .button-row {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 24px;
+      }
+
+      .button-row button {
+        width: auto;
+        padding: 14px 26px;
+      }
+
+      button {
+        padding: 14px 20px;
+        border-radius: 14px;
+        border: none;
+        background: linear-gradient(90deg, #ff7ab6, #7c3aed);
+        color: #0f172a;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease;
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 36px rgba(15, 73, 126, 0.25);
+      }
+
+      .cta-button {
+        width: 100%;
+        padding: 16px 24px !important;
+        font-size: 1.05rem !important;
+        letter-spacing: 0.05em;
+        box-shadow: 0 20px 50px rgba(255, 122, 182, 0.22) !important;
+      }
+
+      .cta-button:hover {
+        box-shadow: 0 24px 60px rgba(255, 122, 182, 0.3) !important;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 22px;
+        color: #bfdbfe;
+        text-decoration: none;
+        opacity: 0.95;
+      }
+
+      @media (max-width: 640px) {
+        .container {
+          padding: 28px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Vertel ons jouw vraag</h1>
+      <p>
+        Vul hieronder kort in waar je hulp bij nodig hebt. We sturen je daarna
+        een passende follow-up.
+      </p>
+      <div class="step-indicator">
+        <span class="step active">1</span>
+        <span class="step">2</span>
+        <span class="step">3</span>
+        <span class="step">4</span>
+        <span class="step">5</span>
+        <span class="step">6</span>
+      </div>
+
+      <form id="project-form">
+        <div class="form-step active" id="step-1">
+          <h2 class="section-heading">1. Uw bedrijf</h2>
+          <label for="first-name">Voornaam</label>
+          <input
+            id="first-name"
+            name="firstName"
+            type="text"
+            placeholder="Bijv. Anna"
+            required
+          />
+          <p class="field-note">Voorbeeld: Anna</p>
+
+          <label for="last-name">Achternaam</label>
+          <input
+            id="last-name"
+            name="lastName"
+            type="text"
+            placeholder="Bijv. Jansen"
+            required
+          />
+          <p class="field-note">Voorbeeld: Jansen</p>
+
+          <label for="email">E-mailadres</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Bijv. anna@bedrijf.nl"
+            required
+          />
+          <p class="field-note">Voorbeeld: anna@bedrijf.nl</p>
+
+          <label for="company">Bedrijfsnaam</label>
+          <input
+            id="company"
+            name="company"
+            type="text"
+            placeholder="Bijv. BrightBrand"
+            required
+          />
+
+          <label for="sector">Sector</label>
+          <select id="sector" name="sector" required>
+            <option value="">Kies uw sector</option>
+            <option>landbouw</option>
+            <option>industrie</option>
+            <option>horeca</option>
+            <option>visserij</option>
+            <option>zorg</option>
+            <option>bouw</option>
+            <option>onderwijs</option>
+            <option>tuinbouw</option>
+            <option>transport</option>
+            <option>overheid</option>
+            <option>ICT</option>
+            <option>veeteelt</option>
+            <option>banken en verzekeringen</option>
+            <option>bosbouw</option>
+            <option>politie en defensie</option>
+            <option>energieproductie</option>
+            <option>detailhandel</option>
+            <option>onderzoek en wetenschap</option>
+            <option>chemische industrie</option>
+            <option>non-profit organisaties</option>
+            <option>metaalindustrie</option>
+          </select>
+
+          <div class="button-row">
+            <button type="button" class="next-button" data-next="2">
+              Volgende
+            </button>
+          </div>
+        </div>
+
+        <div class="form-step" id="step-2">
+          <h2 class="section-heading">2. Fase van uw bedrijf</h2>
+          <div class="radio-group">
+            <div class="radio-item">
+              <input
+                id="phase-starter"
+                type="radio"
+                name="businessPhase"
+                value="Starter"
+                required
+              />
+              <label for="phase-starter" class="radio-label"
+                >Starter (0–1 jaar)</label
+              >
+            </div>
+            <div class="radio-item">
+              <input
+                id="phase-growing"
+                type="radio"
+                name="businessPhase"
+                value="Groeiend"
+                required
+              />
+              <label for="phase-growing" class="radio-label"
+                >Groeiend (1–5 jaar)</label
+              >
+            </div>
+            <div class="radio-item">
+              <input
+                id="phase-established"
+                type="radio"
+                name="businessPhase"
+                value="Gevestigd"
+                required
+              />
+              <label for="phase-established" class="radio-label"
+                >Gevestigd (5+ jaar)</label
+              >
+            </div>
+            <div class="radio-item">
+              <input
+                id="phase-rebranding"
+                type="radio"
+                name="businessPhase"
+                value="Rebranding"
+                required
+              />
+              <label for="phase-rebranding" class="radio-label"
+                >Rebranding</label
+              >
+            </div>
+          </div>
+          <div class="button-row">
+            <button type="button" class="next-button" data-next="3">
+              Volgende
+            </button>
+          </div>
+        </div>
+
+        <div class="form-step" id="step-3">
+          <h2 class="section-heading">3. Grootste branding uitdaging</h2>
+          <p class="subheading">Selecteer alles wat van toepassing is</p>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input
+                id="challenge-style"
+                type="checkbox"
+                name="challenges"
+                value="Geen consistente huisstijl"
+              />
+              <label for="challenge-style" class="checkbox-label"
+                >Geen consistente huisstijl</label
+              >
+            </div>
+            <div class="checkbox-item">
+              <input
+                id="challenge-message"
+                type="checkbox"
+                name="challenges"
+                value="Onduidelijke merkboodschap"
+              />
+              <label for="challenge-message" class="checkbox-label"
+                >Onduidelijke merkboodschap</label
+              >
+            </div>
+            <div class="checkbox-item">
+              <input
+                id="challenge-online"
+                type="checkbox"
+                name="challenges"
+                value="Zwakke online aanwezigheid"
+              />
+              <label for="challenge-online" class="checkbox-label"
+                >Zwakke online aanwezigheid</label
+              >
+            </div>
+            <div class="checkbox-item">
+              <input
+                id="challenge-competitors"
+                type="checkbox"
+                name="challenges"
+                value="Onderscheiden van concurrenten"
+              />
+              <label for="challenge-competitors" class="checkbox-label"
+                >Onderscheiden van concurrenten</label
+              >
+            </div>
+            <div class="checkbox-item">
+              <input
+                id="challenge-strategy"
+                type="checkbox"
+                name="challenges"
+                value="Geen doelgerichte strategie"
+              />
+              <label for="challenge-strategy" class="checkbox-label"
+                >Geen doelgerichte strategie</label
+              >
+            </div>
+            <div class="checkbox-item">
+              <input
+                id="challenge-awareness"
+                type="checkbox"
+                name="challenges"
+                value="Te weinig naamsbekendheid"
+              />
+              <label for="challenge-awareness" class="checkbox-label"
+                >Te weinig naamsbekendheid</label
+              >
+            </div>
+            <div class="checkbox-item">
+              <input
+                id="challenge-audience"
+                type="checkbox"
+                name="challenges"
+                value="Onduidelijke doelgroep"
+              />
+              <label for="challenge-audience" class="checkbox-label"
+                >Onduidelijke doelgroep</label
+              >
+            </div>
+            <div class="checkbox-item">
+              <input
+                id="challenge-appearance"
+                type="checkbox"
+                name="challenges"
+                value="Onprofessionele uitstraling"
+              />
+              <label for="challenge-appearance" class="checkbox-label"
+                >Onprofessionele uitstraling</label
+              >
+            </div>
+          </div>
+          <div class="button-row">
+            <button type="button" class="next-button" data-next="4">
+              Volgende
+            </button>
+          </div>
+        </div>
+
+        <div class="form-step" id="step-4">
+          <h2 class="section-heading">4. Uw situatie</h2>
+          <label for="situation"
+            >Welke problemen ervaart u bij marketing & branding?</label
+          >
+          <textarea
+            id="situation"
+            name="situation"
+            placeholder="Bijv. Mensen blijven het merk zien als goedkoop. Nieuwe reclame (duurzaam/luxe) wordt niet geloofd. Klanten raken in de war: Wat is dit merk eigenlijk?"
+          ></textarea>
+          <div class="button-row">
+            <button type="button" class="next-button" data-next="5">
+              Volgende
+            </button>
+          </div>
+        </div>
+
+        <div class="form-step" id="step-5">
+          <h2 class="section-heading">5. Gewenst pakket</h2>
+          <div class="radio-group">
+            <div class="radio-item">
+              <input
+                id="package-starter"
+                type="radio"
+                name="package"
+                value="Brand Starter"
+                required
+              />
+              <label for="package-starter" class="radio-label"
+                >Brand Starter</label
+              >
+            </div>
+            <div class="radio-item">
+              <input
+                id="package-growth"
+                type="radio"
+                name="package"
+                value="Brand Groei"
+                required
+              />
+              <label for="package-growth" class="radio-label"
+                >Brand Groei (aanbeloven)</label
+              >
+            </div>
+            <div class="radio-item">
+              <input
+                id="package-full"
+                type="radio"
+                name="package"
+                value="Brand Full"
+                required
+              />
+              <label for="package-full" class="radio-label">Brand Full</label>
+            </div>
+            <div class="radio-item">
+              <input
+                id="package-advice"
+                type="radio"
+                name="package"
+                value="Advies nodig"
+                required
+              />
+              <label for="package-advice" class="radio-label"
+                >Advies nodig</label
+              >
+            </div>
+          </div>
+          <h3 class="section-heading">Aanvullende informatie</h3>
+          <textarea
+            id="additional"
+            name="additional"
+            placeholder="Deel eventuele aanvullende informatie die voor ons nuttig is..."
+          ></textarea>
+          <div class="button-row">
+            <button type="button" class="prev-button" data-prev="4">
+              Vorige
+            </button>
+            <button type="button" class="next-button" data-next="6">
+              Volgende
+            </button>
+          </div>
+        </div>
+
+        <div class="form-step" id="step-6">
+          <h2 class="section-heading">6. Klaar voor de merkanalyse</h2>
+          <p class="subheading">
+            We gaan je helpen met een sterker merk. Klik hieronder om je gratis
+            merkanalyse aan te vragen.
+          </p>
+          <div class="button-row">
+            <button type="button" class="prev-button" data-prev="5">
+              Vorige
+            </button>
+            <button type="submit" class="cta-button">
+              GRATIS MERKANALYSE AANVRAGEN
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <a class="back-link" href="index.html">← Terug naar homepage</a>
+    </div>
+
+    <script>
+      const steps = Array.from(document.querySelectorAll(".form-step"));
+      const indicators = Array.from(document.querySelectorAll(".step"));
+      const nextButtons = Array.from(document.querySelectorAll(".next-button"));
+      const prevButtons = Array.from(document.querySelectorAll(".prev-button"));
+      const form = document.getElementById("project-form");
+
+      // Load saved data from localStorage on page load
+      function loadFormData() {
+        const savedData = localStorage.getItem("brandofficeFormData");
+        if (savedData) {
+          const data = JSON.parse(savedData);
+          Object.keys(data).forEach((key) => {
+            const element = form.elements[key];
+            if (element) {
+              if (element.type === "radio" || element.type === "checkbox") {
+                if (Array.isArray(data[key])) {
+                  data[key].forEach((value) => {
+                    const input = form.querySelector(
+                      `[name="${key}"][value="${value}"]`,
+                    );
+                    if (input) input.checked = true;
+                  });
+                } else {
+                  const input = form.querySelector(
+                    `[name="${key}"][value="${data[key]}"]`,
+                  );
+                  if (input) input.checked = true;
+                }
+              } else {
+                element.value = data[key];
+              }
+            }
+          });
+        }
+      }
+
+      // Save form data to localStorage whenever it changes
+      function saveFormData() {
+        const formData = {};
+        const inputs = form.querySelectorAll("input, select, textarea");
+        inputs.forEach((input) => {
+          if (input.type === "checkbox") {
+            if (!formData[input.name]) {
+              formData[input.name] = [];
+            }
+            if (input.checked) {
+              formData[input.name].push(input.value);
+            }
+          } else if (input.type === "radio") {
+            if (input.checked) {
+              formData[input.name] = input.value;
+            }
+          } else {
+            formData[input.name] = input.value;
+          }
+        });
+        localStorage.setItem("brandofficeFormData", JSON.stringify(formData));
+      }
+
+      // Auto-save on input changes
+      form.addEventListener("change", saveFormData);
+      form.addEventListener("input", saveFormData);
+
+      // Load data on page load
+      loadFormData();
+
+      function showStep(stepIndex) {
+        steps.forEach((step, index) => {
+          step.classList.toggle("active", index === stepIndex);
+          if (indicators[index]) {
+            indicators[index].classList.toggle("active", index === stepIndex);
+          }
+        });
+      }
+
+      nextButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const nextStep = Number(button.dataset.next) - 1;
+          const currentStep = steps.findIndex((step) =>
+            step.classList.contains("active"),
+          );
+          if (nextStep > currentStep) {
+            showStep(nextStep);
+          }
+        });
+      });
+
+      prevButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const prevStep = Number(button.dataset.prev) - 1;
+          const currentStep = steps.findIndex((step) =>
+            step.classList.contains("active"),
+          );
+          if (prevStep < currentStep) {
+            showStep(prevStep);
+          }
+        });
+      });
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        saveFormData();
+
+        // Get all form data
+        const formData = JSON.parse(
+          localStorage.getItem("brandofficeFormData") || "{}",
+        );
+
+        // Send to backend (update this URL to your backend endpoint)
+        const backendUrl = "https://your-backend.com/api/submit-form";
+
+        fetch(backendUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        })
+          .then((response) => {
+            if (response.ok) {
+              localStorage.removeItem("brandofficeFormData");
+              window.location.href = "finish.html";
+            } else {
+              console.error("Form submission failed");
+              window.location.href = "finish.html";
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            window.location.href = "finish.html";
+          });
+      });
+    </script>
+  </body>
+</html>
